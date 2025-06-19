@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100">
+  <defs>
+    <!-- Gradient for the medical symbol -->
+    <linearGradient id="medicalGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#005baa"/>
+      <stop offset="100%" style="stop-color:#0077cc"/>
+    </linearGradient>
+    
+    <!-- Filter for subtle shadow -->
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1"/>
+      <feOffset dx="1" dy="1"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.2"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Clean, simple text -->
+  <text x="50%" y="60" 
+        text-anchor="middle"
+        font-family="Arial, sans-serif" 
+        font-size="42" 
+        font-weight="600" 
+        letter-spacing="1"
+        filter="url(#softShadow)">
+    <tspan fill="#005baa">CLINI</tspan>
+    <tspan fill="#333333">CALC</tspan>
+  </text>
+
+  <!-- Subtle line separator -->
+  <line x1="160" y1="65" x2="240" y2="65" 
+        stroke="#005baa" 
+        stroke-width="2" 
+        stroke-linecap="round"
+        opacity="0.6"/>
+
+  <!-- Professional heartbeat line -->
+  <path d="M180 65 h10 l5 -8 l5 16 l5 -8 h10" 
+        stroke="#005baa" 
+        stroke-width="2" 
+        stroke-linecap="round" 
+        fill="none"
+        opacity="0.8"/>
+</svg>

@@ -1,0 +1,9 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Monitor frame -->
+  <rect x="10" y="10" width="80" height="60" fill="#E8E8E8" rx="5"/>
+  <!-- Heart rate line -->
+  <path d="M20 40 L30 40 L35 20 L45 60 L50 40 L55 40 L60 30 L70 50 L80 40" 
+        fill="none" stroke="#FF4757" stroke-width="2"/>
+  <!-- Monitor stand -->
+  <path d="M40 70 L60 70 L55 90 L45 90 Z" fill="#9B9B9B"/>
+</svg>

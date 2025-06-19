@@ -1,0 +1,43 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+env/
+venv/
+*.env
+.env
+.venv/
+*.venv
+
+# Flask-related files
+instance/
+*.sqlite3
+*.db
+
+# Logs and debug files
+*.log
+*.bak
+*.swp
+*.tmp
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE-specific files
+.vscode/
+.idea/
+
+# Node modules (if applicable)
+node_modules/
+
+# Static files (if dynamically generated)
+static/css/*.map
+static/js/*.map
+
+# Ignore compiled CSS/JS (if applicable)
+*.min.css
+*.min.js

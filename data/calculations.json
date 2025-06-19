@@ -1,0 +1,2844 @@
+{
+  "categories": [
+    {
+      "title": "Medical Dosage and Administration",
+      "slug": "medical-dosage",
+      "description": "Calculate precise medication dosages across different administration routes. Features weight-based calculations, concentration conversions, and infusion rates. Essential for accurate drug administration and patient safety.",
+      "calculations": [
+        {
+          "name": "Dosage by Weight",
+          "description": "Calculates the appropriate drug dosage based on a patient's weight.",
+          "formula": "Dosage = Dose per kg × Weight (kg)",
+          "result_unit": "varies (mg, mcg, units, etc.)",
+          "parameters": [
+            {
+              "name": "dosePerKg",
+              "description": "Prescribed dose per kilogram of body weight",
+              "unit": "varies (mg/kg, mcg/kg, units/kg, etc.)",
+              "type": "float"
+            },
+            {
+              "name": "weight",
+              "description": "Patient's weight",
+              "unit": "kg",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "IV Flow Rate",
+          "description": "Calculates the IV flow rate in mL per hour for proper administration.",
+          "formula": "Flow Rate (mL/hr) = Volume (mL) / Time (hr)",
+          "result_unit": "mL/hr",
+          "parameters": [
+            {
+              "name": "volume",
+              "description": "Total volume to be infused",
+              "unit": "mL",
+              "type": "float"
+            },
+            {
+              "name": "time",
+              "description": "Duration of infusion",
+              "unit": "hr",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Drip Rate",
+          "description": "Calculates the number of drops per minute for an IV infusion.",
+          "formula": "Drip Rate (gtt/min) = (Volume (mL) × Drop factor (gtt/mL)) / Time (min)",
+          "result_unit": "gtt/min",
+          "parameters": [
+            {
+              "name": "volume",
+              "description": "Total volume to be infused",
+              "unit": "mL",
+              "type": "float"
+            },
+            {
+              "name": "dropFactor",
+              "description": "Number of drops per mL (varies by IV set type)",
+              "unit": "gtt/mL",
+              "type": "float"
+            },
+            {
+              "name": "time",
+              "description": "Duration of infusion",
+              "unit": "min",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Medication Dose (Volume to Administer)",
+          "description": "Calculates the required volume to administer based on the desired dose and available concentration.",
+          "formula": "Volume to administer (mL) = Desired Dose (mg) / Stock Strength (mg/mL)",
+          "result_unit": "mL",
+          "parameters": [
+            {
+              "name": "desiredDose",
+              "description": "Dose of medication ordered by the physician",
+              "unit": "mg",
+              "type": "float"
+            },
+            {
+              "name": "stockStrength",
+              "description": "Concentration of the medication in stock",
+              "unit": "mg/mL",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Medication Dose (Amount of Drug Required)",
+          "description": "Calculates the amount of drug needed to achieve a desired concentration in a given final volume.",
+          "formula": "Amount of drug (mg) = Desired Concentration (mg/mL) × Final Volume (mL)",
+          "result_unit": "mg",
+          "parameters": [
+            {
+              "name": "desiredConcentration",
+              "description": "Desired concentration of the drug solution",
+              "unit": "mg/mL",
+              "type": "float"
+            },
+            {
+              "name": "finalVolume",
+              "description": "Final total volume of the solution to be prepared",
+              "unit": "mL",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Insulin Dose Calculation",
+          "description": "Calculates insulin dose based on blood glucose levels and correction factor.",
+          "formula": "Insulin dose = (Current glucose - Target glucose) / Correction factor",
+          "result_unit": "units",
+          "parameters": [
+            {
+              "name": "currentGlucose",
+              "description": "Current blood glucose reading",
+              "unit": "mg/dL or mmol/L",
+              "type": "float"
+            },
+            {
+              "name": "targetGlucose",
+              "description": "Target blood glucose level",
+              "unit": "mg/dL or mmol/L",
+              "type": "float"
+            },
+            {
+              "name": "correctionFactor",
+              "description": "How much 1 unit of insulin will lower blood glucose",
+              "unit": "mg/dL/unit or mmol/L/unit",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Pediatric Dosage (Young's Rule)",
+          "description": "Calculates pediatric drug dose using Young's Rule.",
+          "formula": "Pediatric Dose = (Age ÷ (Age + 12)) × Adult Dose",
+          "result_unit": "varies (mg, mL, mcg, etc.)",
+          "parameters": [
+            {
+              "name": "age",
+              "description": "Child's age",
+              "unit": "years",
+              "type": "integer"
+            },
+            {
+              "name": "adultDose",
+              "description": "Standard adult dose",
+              "unit": "varies (mg, mL, mcg, etc.)",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Pediatric Dosage (Clark's Rule)",
+          "description": "Calculates pediatric drug dose using Clark's Rule.",
+          "formula": "Pediatric Dose = (Weight (lb) ÷ 150) × Adult Dose",
+          "result_unit": "varies (mg, mL, mcg, etc.)",
+          "parameters": [
+            {
+              "name": "weight",
+              "description": "Child's weight",
+              "unit": "lb",
+              "type": "float"
+            },
+            {
+              "name": "adultDose",
+              "description": "Standard adult dose",
+              "unit": "varies (mg, mL, mcg, etc.)",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Creatinine Clearance (Cockcroft-Gault Equation)",
+          "description": "Estimates creatinine clearance for medication dosing in patients with renal impairment.",
+          "formula": "CrCl (mL/min) = [(140 - Age) × Weight (kg) × (0.85 if female)] / (72 × Serum Creatinine (mg/dL))",
+          "result_unit": "mL/min",
+          "parameters": [
+            {
+              "name": "age",
+              "description": "Patient's age",
+              "unit": "years",
+              "type": "integer"
+            },
+            {
+              "name": "weight",
+              "description": "Patient's weight",
+              "unit": "kg",
+              "type": "float"
+            },
+            {
+              "name": "serumCreatinine",
+              "description": "Serum creatinine level",
+              "unit": "mg/dL",
+              "type": "float"
+            },
+            {
+              "name": "sex",
+              "description": "Patient's biological sex",
+              "unit": "N/A",
+              "type": "string",
+              "options": ["Male", "Female"]
+            }
+          ]
+        },
+        {
+          "name": "Heparin Infusion Rate",
+          "description": "Calculates the required heparin infusion rate.",
+          "formula": "Rate (mL/hr) = (Units/hr ordered ÷ Concentration (units/mL))",
+          "result_unit": "mL/hr",
+          "parameters": [
+            {
+              "name": "unitsPerHour",
+              "description": "Heparin units per hour ordered",
+              "unit": "units/hr",
+              "type": "float"
+            },
+            {
+              "name": "concentration",
+              "description": "Concentration of heparin solution",
+              "unit": "units/mL",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Fluid Maintenance for Pediatrics (4-2-1 Rule)",
+          "description": "Calculates the fluid maintenance requirement for pediatric patients.",
+          "formula": "Total Fluid (mL/hr) = 4mL/kg for first 10kg + 2mL/kg for next 10kg + 1mL/kg for remaining weight",
+          "result_unit": "mL/hr",
+          "parameters": [
+            {
+              "name": "weight",
+              "description": "Patient's weight",
+              "unit": "kg",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "APGAR Score",
+          "description": "Calculates newborn health status based on appearance, pulse, grimace, activity, and respiration.",
+          "formula": "APGAR Score = Sum of 5 criteria scored 0-2 each",
+          "result_unit": "score (0-10)",
+          "parameters": [
+            {
+              "name": "appearance",
+              "description": "Color assessment",
+              "unit": "score (0-2)",
+              "type": "float",
+              "enum": [0, 1, 2]
+            },
+            {
+              "name": "pulse",
+              "description": "Heart rate assessment",
+              "unit": "score (0-2)",
+              "type": "float",
+              "enum": [0, 1, 2]
+            },
+            {
+              "name": "grimace",
+              "description": "Reflex irritability assessment",
+              "unit": "score (0-2)",
+              "type": "float",
+              "enum": [0, 1, 2]
+            },
+            {
+              "name": "activity",
+              "description": "Muscle tone assessment",
+              "unit": "score (0-2)",
+              "type": "float",
+              "enum": [0, 1, 2]
+            },
+            {
+              "name": "respiration",
+              "description": "Respiratory effort assessment",
+              "unit": "score (0-2)",
+              "type": "float",
+              "enum": [0, 1, 2]
+            }
+          ]
+        },
+        {
+          "name": "Oxygen Flow Rate",
+          "description": "Calculates the required oxygen flow rate based on desired FiO2.",
+          "formula": "Flow Rate (L/min) = (FiO2 × Minute Ventilation) / 21",
+          "result_unit": "L/min",
+          "parameters": [
+            {
+              "name": "fiO2",
+              "description": "Desired fraction of inspired oxygen",
+              "unit": "% (expressed as decimal)",
+              "type": "float"
+            },
+            {
+              "name": "minuteVentilation",
+              "description": "Volume of air breathed per minute",
+              "unit": "L/min",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Anion Gap",
+          "description": "Calculates the anion gap to assess acid-base balance.",
+          "formula": "Anion Gap = (Na+ + K+) - (Cl- + HCO3-)",
+          "result_unit": "mEq/L",
+          "parameters": [
+            {
+              "name": "sodium",
+              "description": "Sodium level",
+              "unit": "mEq/L",
+              "type": "float"
+            },
+            {
+              "name": "potassium",
+              "description": "Potassium level",
+              "unit": "mEq/L",
+              "type": "float"
+            },
+            {
+              "name": "chloride",
+              "description": "Chloride level",
+              "unit": "mEq/L",
+              "type": "float"
+            },
+            {
+              "name": "bicarbonate",
+              "description": "Bicarbonate level",
+              "unit": "mEq/L",
+              "type": "float"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Patient Monitoring",
+      "slug": "patient-monitoring",
+      "description": "Track vital signs, trending data, and patient parameters in real-time. Includes early warning scores, vital sign analysis, and condition monitoring. Supports proactive patient care and clinical decision-making.",
+      "calculations": [
+        {
+          "name": "Early Warning Score (EWS)",
+          "description": "Calculates an early warning score based on vital signs to identify patient deterioration.",
+          "formula": "EWS = Sum of scores for respiratory rate, oxygen saturation, temperature, systolic blood pressure, and heart rate. Each parameter is scored according to defined thresholds.",
+          "result_unit": "score",
+          "parameters": [
+            {
+              "name": "respiratoryRate",
+              "description": "Patient's respiratory rate (scoring: ≤8=3, 9–11=1, 12–20=0, 21–24=2, ≥25=3)",
+              "unit": "breaths/min",
+              "type": "float"
+            },
+            {
+              "name": "oxygenSaturation",
+              "description": "Patient's oxygen saturation level (scoring: ≤91=3, 92–93=2, 94–95=1, ≥96=0)",
+              "unit": "%",
+              "type": "float"
+            },
+            {
+              "name": "temperature",
+              "description": "Patient's body temperature (scoring: ≤35.0=3, 35.1–36.0=1, 36.1–38.0=0, 38.1–39.0=1, ≥39.1=2)",
+              "unit": "°C",
+              "type": "float"
+            },
+            {
+              "name": "systolicBP",
+              "description": "Systolic blood pressure (scoring: ≤90=3, 91–100=2, 101–110=1, 111–219=0, ≥220=3)",
+              "unit": "mmHg",
+              "type": "float"
+            },
+            {
+              "name": "heartRate",
+              "description": "Patient's heart rate (scoring: ≤40=3, 41–50=1, 51–90=0, 91–110=1, 111–130=2, ≥131=3)",
+              "unit": "beats/min",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Respiratory Rate to Tidal Volume Ratio",
+          "description": "Calculates the ratio of respiratory rate to tidal volume for assessing respiratory efficiency.",
+          "formula": "RR/TV Ratio = Respiratory Rate / Tidal Volume",
+          "result_unit": "breaths/mL",
+          "parameters": [
+            {
+              "name": "respiratoryRate",
+              "description": "Patient's respiratory rate",
+              "unit": "breaths/min",
+              "type": "float"
+            },
+            {
+              "name": "tidalVolume",
+              "description": "Volume of air displaced during normal inhalation and exhalation",
+              "unit": "mL",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Shock Index",
+          "description": "Calculates the shock index to assess hemodynamic stability.",
+          "formula": "Shock Index = Heart Rate / Systolic Blood Pressure",
+          "result_unit": "ratio",
+          "parameters": [
+            {
+              "name": "heartRate",
+              "description": "Patient's heart rate",
+              "unit": "beats/min",
+              "type": "float"
+            },
+            {
+              "name": "systolicBP",
+              "description": "Systolic blood pressure",
+              "unit": "mmHg",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Glasgow Coma Scale (GCS)",
+          "description": "Calculates the Glasgow Coma Scale score to assess consciousness level.",
+          "formula": "GCS = Eye Response + Verbal Response + Motor Response",
+          "result_unit": "score (3-15)",
+          "parameters": [
+            {
+              "name": "eyeResponse",
+              "description": "Score for eye-opening response",
+              "unit": "score (1-4)",
+              "type": "float",
+              "enum": [1, 2, 3, 4]
+            },
+            {
+              "name": "verbalResponse",
+              "description": "Score for verbal response",
+              "unit": "score (1-5)",
+              "type": "float",
+              "enum": [1, 2, 3, 4, 5]
+            },
+            {
+              "name": "motorResponse",
+              "description": "Score for motor response",
+              "unit": "score (1-6)",
+              "type": "float",
+              "enum": [1, 2, 3, 4, 5, 6]
+            }
+          ]
+        },
+        {
+          "name": "Pulse Pressure",
+          "description": "Calculates the pulse pressure to assess cardiovascular health.",
+          "formula": "Pulse Pressure = Systolic Blood Pressure - Diastolic Blood Pressure",
+          "result_unit": "mmHg",
+          "parameters": [
+            {
+              "name": "systolicBP",
+              "description": "Systolic blood pressure",
+              "unit": "mmHg",
+              "type": "float"
+            },
+            {
+              "name": "diastolicBP",
+              "description": "Diastolic blood pressure",
+              "unit": "mmHg",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Mean Arterial Pressure (MAP)",
+          "description": "Calculates mean arterial pressure to assess perfusion.",
+          "formula": "MAP = [(2 × Diastolic) + Systolic] / 3",
+          "result_unit": "mmHg",
+          "parameters": [
+            {
+              "name": "systolic",
+              "description": "Systolic blood pressure",
+              "unit": "mmHg",
+              "type": "float"
+            },
+            {
+              "name": "diastolic",
+              "description": "Diastolic blood pressure",
+              "unit": "mmHg",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Oxygenation Index (OI)",
+          "description": "Calculates the oxygenation index to assess the severity of hypoxemia.",
+          "formula": "OI = (FiO2 × Mean Airway Pressure × 100) / PaO2",
+          "result_unit": "unitless",
+          "parameters": [
+            {
+              "name": "fiO2",
+              "description": "Fraction of inspired oxygen",
+              "unit": "% (expressed as decimal)",
+              "type": "float"
+            },
+            {
+              "name": "meanAirwayPressure",
+              "description": "Mean airway pressure",
+              "unit": "cmH2O",
+              "type": "float"
+            },
+            {
+              "name": "paO2",
+              "description": "Arterial oxygen partial pressure",
+              "unit": "mmHg",
+              "type": "float"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Nutrition and Fluid Management",
+      "slug": "nutrition-fluid-management",
+      "description": "Assess nutritional needs and manage fluid balance. Calculate BMI, caloric requirements, tube feeding rates, and fluid replacement. Supports comprehensive nutritional care planning and hydration management.",
+      "calculations": [
+        {
+          "name": "Caloric Requirements (Harris-Benedict Equation)",
+          "description": "Calculates daily caloric needs based on basal metabolic rate (BMR) using the Harris-Benedict equation and activity level.",
+          "formula": "Calories = BMR × Activity Factor, where BMR = 88.362 + (13.397 × Weight in kg) + (4.799 × Height in cm) - (5.677 × Age in years) for males, and BMR = 447.593 + (9.247 × Weight in kg) + (3.098 × Height in cm) - (4.330 × Age in years) for females.",
+          "result_unit": "kcal/day",
+          "parameters": [
+            {
+              "name": "weight",
+              "description": "Patient's weight",
+              "unit": "kg",
+              "type": "float"
+            },
+            {
+              "name": "height",
+              "description": "Patient's height",
+              "unit": "cm",
+              "type": "float"
+            },
+            {
+              "name": "age",
+              "description": "Patient's age",
+              "unit": "years",
+              "type": "integer"
+            },
+            {
+              "name": "sex",
+              "description": "Patient's biological sex (true for male, false for female)",
+              "unit": "N/A",
+              "type": "string",
+              "options": ["Male", "Female"]
+            },
+            {
+              "name": "activityFactor",
+              "description": "Activity level multiplier (1.2 = sedentary, 1.375 = lightly active, 1.55 = moderately active, 1.725 = very active, 1.9 = extremely active)",
+              "unit": "unitless",
+              "type": "float",
+              "enum": [1.2, 1.375, 1.55, 1.725, 1.9]
+            }
+          ]
+        },
+        {
+          "name": "Caloric Requirements (Mifflin-St Jeor Equation)",
+          "description": "Calculates daily caloric needs based on basal metabolic rate (BMR) using the Mifflin-St Jeor equation and activity level.",
+          "formula": "Calories = BMR × Activity Factor, where BMR = (10 × Weight in kg) + (6.25 × Height in cm) - (5 × Age in years) + 5 for males, and BMR = (10 × Weight in kg) + (6.25 × Height in cm) - (5 × Age in years) - 161 for females.",
+          "result_unit": "kcal/day",
+          "parameters": [
+            {
+              "name": "weight",
+              "description": "Patient's weight",
+              "unit": "kg",
+              "type": "float"
+            },
+            {
+              "name": "height",
+              "description": "Patient's height",
+              "unit": "cm",
+              "type": "float"
+            },
+            {
+              "name": "age",
+              "description": "Patient's age",
+              "unit": "years",
+              "type": "integer"
+            },
+            {
+              "name": "sex",
+              "description": "Patient's biological sex (true for male, false for female)",
+              "unit": "N/A",
+              "type": "string",
+              "options": ["Male", "Female"]
+            },
+            {
+              "name": "activityFactor",
+              "description": "Activity level multiplier (1.2 = sedentary, 1.375 = lightly active, 1.55 = moderately active, 1.725 = very active, 1.9 = extremely active)",
+              "unit": "unitless",
+              "type": "float",
+              "enum": [1.2, 1.375, 1.55, 1.725, 1.9]
+            }
+          ]
+        },
+        {
+          "name": "Fluid Requirement by Body Weight",
+          "description": "Calculates daily fluid requirement based on body weight.",
+          "formula": "Fluid (mL/day) = Weight (kg) × 30 mL",
+          "result_unit": "mL/day",
+          "parameters": [
+            {
+              "name": "weight",
+              "description": "Patient's weight",
+              "unit": "kg",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Enteral Nutrition Formula",
+          "description": "Calculates the required volume of enteral nutrition formula to meet caloric needs.",
+          "formula": "Volume (mL) = Caloric Needs (kcal) / Formula Caloric Density (kcal/mL)",
+          "result_unit": "mL",
+          "parameters": [
+            {
+              "name": "caloricNeeds",
+              "description": "Total daily caloric needs",
+              "unit": "kcal",
+              "type": "float"
+            },
+            {
+              "name": "formulaCaloricDensity",
+              "description": "Caloric density of the enteral formula",
+              "unit": "kcal/mL",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Parenteral Nutrition Macronutrient Distribution",
+          "description": "Calculates the distribution of macronutrients in parenteral nutrition.",
+          "formula": "Macronutrient Distribution = Total Calories × Macronutrient Percentage",
+          "result_unit": "kcal",
+          "parameters": [
+            {
+              "name": "totalCalories",
+              "description": "Total daily caloric intake",
+              "unit": "kcal",
+              "type": "float"
+            },
+            {
+              "name": "macronutrientPercentage",
+              "description": "Percentage of calories from the macronutrient",
+              "unit": "%",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Electrolyte Requirements",
+          "description": "Calculates daily electrolyte requirements based on weight.",
+          "formula": "Electrolyte (mEq/day) = Weight (kg) × Requirement Factor",
+          "result_unit": "mEq/day",
+          "parameters": [
+            {
+              "name": "weight",
+              "description": "Patient's weight",
+              "unit": "kg",
+              "type": "float"
+            },
+            {
+              "name": "requirementFactor",
+              "description": "Electrolyte requirement factor (varies by electrolyte)",
+              "unit": "mEq/kg",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Body Mass Index (BMI)",
+          "description": "Calculates BMI to assess body weight relative to height.",
+          "formula": "BMI = Weight (kg) / (Height (m)²)",
+          "result_unit": "kg/m²",
+          "parameters": [
+            {
+              "name": "weight",
+              "description": "Patient's weight",
+              "unit": "kg",
+              "type": "float"
+            },
+            {
+              "name": "height",
+              "description": "Patient's height",
+              "unit": "m",
+              "type": "float"
+            }
+          ]
+        },
+
+        {
+          "name": "Tube Feeding Rate",
+          "description": "Calculates the required rate for enteral feeding.",
+          "formula": "Rate (mL/hr) = Total Volume (mL) / Feeding Duration (hr)",
+          "result_unit": "mL/hr",
+          "parameters": [
+            {
+              "name": "totalVolume",
+              "description": "Total volume of feeding solution",
+              "unit": "mL",
+              "type": "float"
+            },
+            {
+              "name": "feedingDuration",
+              "description": "Duration of feeding",
+              "unit": "hr",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Fluid Replacement",
+          "description": "Calculates the fluid replacement requirement based on deficit and maintenance needs.",
+          "formula": "Total Fluid (mL) = Deficit (mL) + Maintenance (mL)",
+          "result_unit": "mL",
+          "parameters": [
+            {
+              "name": "deficit",
+              "description": "Fluid deficit",
+              "unit": "mL",
+              "type": "float"
+            },
+            {
+              "name": "maintenance",
+              "description": "Maintenance fluid requirement",
+              "unit": "mL",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Protein Requirement",
+          "description": "Calculates daily protein needs based on body weight.",
+          "formula": "Protein (g/day) = Weight (kg) × Protein Factor (g/kg)",
+          "result_unit": "g/day",
+          "parameters": [
+            {
+              "name": "weight",
+              "description": "Patient's weight",
+              "unit": "kg",
+              "type": "float"
+            },
+            {
+              "name": "proteinFactor",
+              "description": "Protein requirement per kg of body weight",
+              "unit": "g/kg",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Daily Water Requirement",
+          "description": "Calculates the daily water requirement based on body weight.",
+          "formula": "Water (mL/day) = Weight (kg) × 40 mL",
+          "result_unit": "mL/day",
+          "parameters": [
+            {
+              "name": "weight",
+              "description": "Patient's weight",
+              "unit": "kg",
+              "type": "float"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Pharmacokinetics",
+      "slug": "pharmacokinetics",
+      "description": "Analyze drug absorption, distribution, metabolism, and excretion. Includes calculations for half-life, clearance, volume of distribution, and dosing regimens. Supports precise pharmacokinetic modeling and therapeutic drug monitoring.",
+      "calculations": [
+        {
+          "name": "Half-Life",
+          "description": "Calculates the time required for the drug concentration to reduce by half.",
+          "formula": "Half-Life (t½) = (0.693 × Volume of Distribution) / Clearance",
+          "result_unit": "time",
+          "parameters": [
+            {
+              "name": "volumeOfDistribution",
+              "description": "Volume of distribution of the drug",
+              "unit": "L",
+              "type": "float"
+            },
+            {
+              "name": "clearance",
+              "description": "Clearance rate of the drug",
+              "unit": "L/time",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Clearance",
+          "description": "Calculates the clearance rate of a drug from the body.",
+          "formula": "Clearance (L/time) = (Dose × Bioavailability) / Area Under the Curve (AUC)",
+          "result_unit": "L/time",
+          "parameters": [
+            {
+              "name": "dose",
+              "description": "Administered dose of the drug",
+              "unit": "mg",
+              "type": "float"
+            },
+            {
+              "name": "bioavailability",
+              "description": "Fraction of the drug that reaches systemic circulation",
+              "unit": "percentage (expressed as decimal)",
+              "type": "float"
+            },
+            {
+              "name": "auc",
+              "description": "Area under the plasma concentration-time curve",
+              "unit": "mg·time/L",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Volume of Distribution",
+          "description": "Calculates the apparent volume in which the drug is distributed.",
+          "formula": "Volume of Distribution (L) = Dose / Plasma Concentration",
+          "result_unit": "L",
+          "parameters": [
+            {
+              "name": "dose",
+              "description": "Administered dose of the drug",
+              "unit": "mg",
+              "type": "float"
+            },
+            {
+              "name": "plasmaConcentration",
+              "description": "Plasma concentration of the drug",
+              "unit": "mg/L",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Loading Dose",
+          "description": "Calculates the initial dose required to achieve the desired plasma concentration.",
+          "formula": "Loading Dose (mg) = Target Concentration × Volume of Distribution / Bioavailability",
+          "result_unit": "mg",
+          "parameters": [
+            {
+              "name": "targetConcentration",
+              "description": "Desired plasma concentration of the drug",
+              "unit": "mg/L",
+              "type": "float"
+            },
+            {
+              "name": "volumeOfDistribution",
+              "description": "Volume of distribution of the drug",
+              "unit": "L",
+              "type": "float"
+            },
+            {
+              "name": "bioavailability",
+              "description": "Fraction of the drug that reaches systemic circulation",
+              "unit": "percentage (expressed as decimal)",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Maintenance Dose",
+          "description": "Calculates the dose required to maintain a steady-state concentration.",
+          "formula": "Maintenance Dose (mg/time) = Clearance × Target Concentration / Bioavailability",
+          "result_unit": "mg/time",
+          "parameters": [
+            {
+              "name": "clearance",
+              "description": "Clearance rate of the drug",
+              "unit": "L/time",
+              "type": "float"
+            },
+            {
+              "name": "targetConcentration",
+              "description": "Desired plasma concentration of the drug",
+              "unit": "mg/L",
+              "type": "float"
+            },
+            {
+              "name": "bioavailability",
+              "description": "Fraction of the drug that reaches systemic circulation",
+              "unit": "percentage (expressed as decimal)",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Steady-State Concentration",
+          "description": "Calculates the steady-state concentration of a drug during continuous dosing.",
+          "formula": "Steady-State Concentration (mg/L) = (Dose Rate × Bioavailability) / Clearance",
+          "result_unit": "mg/L",
+          "parameters": [
+            {
+              "name": "doseRate",
+              "description": "Rate of drug administration",
+              "unit": "mg/time",
+              "type": "float"
+            },
+            {
+              "name": "bioavailability",
+              "description": "Fraction of the drug that reaches systemic circulation",
+              "unit": "percentage (expressed as decimal)",
+              "type": "float"
+            },
+            {
+              "name": "clearance",
+              "description": "Clearance rate of the drug",
+              "unit": "L/time",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Elimination Rate Constant",
+          "description": "Calculates the rate constant for drug elimination.",
+          "formula": "Elimination Rate Constant (k) = Clearance / Volume of Distribution",
+          "result_unit": "1/time",
+          "parameters": [
+            {
+              "name": "clearance",
+              "description": "Clearance rate of the drug",
+              "unit": "L/time",
+              "type": "float"
+            },
+            {
+              "name": "volumeOfDistribution",
+              "description": "Volume of distribution of the drug",
+              "unit": "L",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Area Under the Curve (AUC)",
+          "description": "Calculates the total drug exposure over time.",
+          "formula": "AUC (mg·time/L) = Dose × Bioavailability / Clearance",
+          "result_unit": "mg·time/L",
+          "parameters": [
+            {
+              "name": "dose",
+              "description": "Administered dose of the drug",
+              "unit": "mg",
+              "type": "float"
+            },
+            {
+              "name": "bioavailability",
+              "description": "Fraction of the drug that reaches systemic circulation",
+              "unit": "percentage (expressed as decimal)",
+              "type": "float"
+            },
+            {
+              "name": "clearance",
+              "description": "Clearance rate of the drug",
+              "unit": "L/time",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Time to Reach Steady State",
+          "description": "Calculates the time required to reach steady-state concentration during continuous dosing.",
+          "formula": "Time to Steady State = 5 × Half-Life",
+          "result_unit": "time",
+          "parameters": [
+            {
+              "name": "halfLife",
+              "description": "Half-life of the drug",
+              "unit": "time",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Accumulation Factor",
+          "description": "Calculates the accumulation factor for a drug given its dosing interval and half-life.",
+          "formula": "Accumulation Factor = 1 / (1 - e^(-k × τ))",
+          "result_unit": "unitless",
+          "parameters": [
+            {
+              "name": "k",
+              "description": "Elimination rate constant",
+              "unit": "1/time",
+              "type": "float"
+            },
+            {
+              "name": "tau",
+              "description": "Dosing interval",
+              "unit": "time",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Peak Plasma Concentration (Cmax)",
+          "description": "Calculates the peak plasma concentration after a single dose.",
+          "formula": "Cmax = (Dose × Bioavailability) / (Volume of Distribution)",
+          "result_unit": "mg/L",
+          "parameters": [
+            {
+              "name": "dose",
+              "description": "Administered dose of the drug",
+              "unit": "mg",
+              "type": "float"
+            },
+            {
+              "name": "bioavailability",
+              "description": "Fraction of the drug that reaches systemic circulation",
+              "unit": "percentage (expressed as decimal)",
+              "type": "float"
+            },
+            {
+              "name": "volumeOfDistribution",
+              "description": "Volume of distribution of the drug",
+              "unit": "L",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Trough Plasma Concentration (Cmin)",
+          "description": "Calculates the trough plasma concentration before the next dose.",
+          "formula": "Cmin = Cmax × e^(-k × τ)",
+          "result_unit": "mg/L",
+          "parameters": [
+            {
+              "name": "cmax",
+              "description": "Peak plasma concentration",
+              "unit": "mg/L",
+              "type": "float"
+            },
+            {
+              "name": "k",
+              "description": "Elimination rate constant",
+              "unit": "1/time",
+              "type": "float"
+            },
+            {
+              "name": "tau",
+              "description": "Dosing interval",
+              "unit": "time",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Therapeutic Index",
+          "description": "Calculates the therapeutic index of a drug to assess its safety margin.",
+          "formula": "Therapeutic Index = TD50 / ED50",
+          "result_unit": "unitless",
+          "parameters": [
+            {
+              "name": "td50",
+              "description": "Median toxic dose",
+              "unit": "mg/kg",
+              "type": "float"
+            },
+            {
+              "name": "ed50",
+              "description": "Median effective dose",
+              "unit": "mg/kg",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Loading Dose Adjustment",
+          "description": "Calculates the adjusted loading dose for a patient with altered pharmacokinetics.",
+          "formula": "Adjusted Loading Dose = Target Concentration × Adjusted Volume of Distribution",
+          "result_unit": "mg",
+          "parameters": [
+            {
+              "name": "targetConcentration",
+              "description": "Desired plasma concentration of the drug",
+              "unit": "mg/L",
+              "type": "float"
+            },
+            {
+              "name": "adjustedVolumeOfDistribution",
+              "description": "Adjusted volume of distribution based on patient factors",
+              "unit": "L",
+              "type": "float"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Blood and Lab Values",
+      "slug": "blood-lab-values",
+      "description": "Interpret laboratory results and blood work with clinical context. Features reference ranges, value conversions, and trending analysis. Essential for diagnostic assessment and treatment monitoring.",
+      "calculations": [
+        {
+          "name": "Hemoglobin to Hematocrit Conversion",
+          "description": "Estimates hematocrit percentage from hemoglobin concentration.",
+          "formula": "Hematocrit (%) = Hemoglobin (g/dL) × 3",
+          "result_unit": "%",
+          "parameters": [
+            {
+              "name": "hemoglobin",
+              "description": "Hemoglobin concentration",
+              "unit": "g/dL",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Red Cell Distribution Width (RDW)",
+          "description": "Calculates the variation in red blood cell size.",
+          "formula": "RDW (%) = (Standard Deviation of RBC Volume / Mean Corpuscular Volume) × 100",
+          "result_unit": "%",
+          "parameters": [
+            {
+              "name": "stdDevRBCVolume",
+              "description": "Standard deviation of red blood cell volume",
+              "unit": "fL",
+              "type": "float"
+            },
+            {
+              "name": "meanCorpuscularVolume",
+              "description": "Mean corpuscular volume",
+              "unit": "fL",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Reticulocyte Production Index (RPI)",
+          "description": "Adjusts the reticulocyte count for anemia severity.",
+          "formula": "RPI = (Reticulocyte Count × Hematocrit) / (Normal Hematocrit × Maturation Factor)",
+          "result_unit": "unitless",
+          "parameters": [
+            {
+              "name": "reticulocyteCount",
+              "description": "Reticulocyte count",
+              "unit": "%",
+              "type": "float"
+            },
+            {
+              "name": "hematocrit",
+              "description": "Patient's hematocrit level",
+              "unit": "%",
+              "type": "float"
+            },
+            {
+              "name": "normalHematocrit",
+              "description": "Normal hematocrit level",
+              "unit": "%",
+              "type": "float"
+            },
+            {
+              "name": "maturationFactor",
+              "description": "Maturation factor based on hematocrit level",
+              "unit": "unitless",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Mean Platelet Volume (MPV)",
+          "description": "Calculates the average size of platelets in the blood.",
+          "formula": "MPV (fL) = Platelet Volume / Platelet Count",
+          "result_unit": "fL",
+          "parameters": [
+            {
+              "name": "plateletVolume",
+              "description": "Total platelet volume",
+              "unit": "fL",
+              "type": "float"
+            },
+            {
+              "name": "plateletCount",
+              "description": "Platelet count",
+              "unit": "million/μL",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Neutrophil-to-Lymphocyte Ratio (NLR)",
+          "description": "Calculates the ratio of neutrophils to lymphocytes as an inflammatory marker.",
+          "formula": "NLR = Neutrophil Count / Lymphocyte Count",
+          "result_unit": "ratio",
+          "parameters": [
+            {
+              "name": "neutrophilCount",
+              "description": "Absolute neutrophil count",
+              "unit": "cells/μL",
+              "type": "float"
+            },
+            {
+              "name": "lymphocyteCount",
+              "description": "Absolute lymphocyte count",
+              "unit": "cells/μL",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Corrected Reticulocyte Count",
+          "description": "Adjusts the reticulocyte count for anemia.",
+          "formula": "Corrected Reticulocyte Count (%) = Reticulocyte Count × (Patient's Hematocrit / Normal Hematocrit)",
+          "result_unit": "%",
+          "parameters": [
+            {
+              "name": "reticulocyteCount",
+              "description": "Reticulocyte count",
+              "unit": "%",
+              "type": "float"
+            },
+            {
+              "name": "patientsHematocrit",
+              "description": "Patient's hematocrit level",
+              "unit": "%",
+              "type": "float"
+            },
+            {
+              "name": "normalHematocrit",
+              "description": "Normal hematocrit level",
+              "unit": "%",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Corrected Calcium",
+          "description": "Adjusts calcium level based on albumin concentration.",
+          "formula": "Corrected Calcium (mg/dL) = Measured Calcium + 0.8 × (4 - Albumin)",
+          "result_unit": "mg/dL",
+          "parameters": [
+            {
+              "name": "measuredCalcium",
+              "description": "Measured calcium level",
+              "unit": "mg/dL",
+              "type": "float"
+            },
+            {
+              "name": "albumin",
+              "description": "Albumin level",
+              "unit": "g/dL",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Anion Gap",
+          "description": "Calculates the anion gap to assess acid-base balance.",
+          "formula": "Anion Gap = (Na+ + K+) - (Cl- + HCO3-)",
+          "result_unit": "mEq/L",
+          "parameters": [
+            {
+              "name": "sodium",
+              "description": "Sodium level",
+              "unit": "mEq/L",
+              "type": "float"
+            },
+            {
+              "name": "potassium",
+              "description": "Potassium level",
+              "unit": "mEq/L",
+              "type": "float"
+            },
+            {
+              "name": "chloride",
+              "description": "Chloride level",
+              "unit": "mEq/L",
+              "type": "float"
+            },
+            {
+              "name": "bicarbonate",
+              "description": "Bicarbonate level",
+              "unit": "mEq/L",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "eGFR (Estimated Glomerular Filtration Rate)",
+          "description": "Estimates kidney function based on serum creatinine, age, sex, and race.",
+          "formula": "eGFR (mL/min/1.73m²) = 186 × (Serum Creatinine)^-1.154 × (Age)^-0.203 × (0.742 if female) × (1.212 if Black)",
+          "result_unit": "mL/min/1.73m²",
+          "parameters": [
+            {
+              "name": "serumCreatinine",
+              "description": "Serum creatinine level",
+              "unit": "mg/dL",
+              "type": "float"
+            },
+            {
+              "name": "age",
+              "description": "Patient's age",
+              "unit": "years",
+              "type": "integer"
+            },
+            {
+              "name": "sex",
+              "description": "Patient's biological sex",
+              "unit": "N/A",
+              "type": "string",
+              "options": ["Male", "Female"]
+            },
+            {
+              "name": "race",
+              "description": "Patient's race",
+              "unit": "N/A",
+              "type": "string",
+              "options": ["Black", "Non-Black"]
+            }
+          ]
+        },
+        {
+          "name": "Mean Corpuscular Volume (MCV)",
+          "description": "Calculates the average volume of red blood cells.",
+          "formula": "MCV (fL) = (Hematocrit × 10) / RBC Count",
+          "result_unit": "fL",
+          "parameters": [
+            {
+              "name": "hematocrit",
+              "description": "Hematocrit level",
+              "unit": "%",
+              "type": "float"
+            },
+            {
+              "name": "rbcCount",
+              "description": "Red blood cell count",
+              "unit": "million/μL",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Transferrin Saturation",
+          "description": "Calculates transferrin saturation to assess iron status.",
+          "formula": "Transferrin Saturation (%) = (Serum Iron / Total Iron Binding Capacity) × 100",
+          "result_unit": "%",
+          "parameters": [
+            {
+              "name": "serumIron",
+              "description": "Serum iron level",
+              "unit": "μg/dL",
+              "type": "float"
+            },
+            {
+              "name": "tibc",
+              "description": "Total iron binding capacity",
+              "unit": "μg/dL",
+              "type": "float"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Cardiovascular Health",
+      "slug": "cardiovascular-health",
+      "description": "Evaluate cardiac function and hemodynamics. Calculate cardiac output, stroke volume, and vascular resistance. Includes BP assessment and heart rate analysis for comprehensive cardiovascular care.",
+      "calculations": [
+        {
+          "name": "Cardiac Output",
+          "description": "Calculates cardiac output based on stroke volume and heart rate.",
+          "formula": "Cardiac Output (L/min) = Stroke Volume (mL) × Heart Rate (bpm) / 1000",
+          "result_unit": "L/min",
+          "parameters": [
+            {
+              "name": "strokeVolume",
+              "description": "Volume of blood pumped per heartbeat",
+              "unit": "mL",
+              "type": "float"
+            },
+            {
+              "name": "heartRate",
+              "description": "Number of heartbeats per minute",
+              "unit": "bpm",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Stroke Volume",
+          "description": "Calculates stroke volume based on end-diastolic and end-systolic volumes.",
+          "formula": "Stroke Volume (mL) = End-Diastolic Volume (mL) - End-Systolic Volume (mL)",
+          "result_unit": "mL",
+          "parameters": [
+            {
+              "name": "endDiastolicVolume",
+              "description": "Volume of blood in the ventricle at the end of diastole",
+              "unit": "mL",
+              "type": "float"
+            },
+            {
+              "name": "endSystolicVolume",
+              "description": "Volume of blood in the ventricle at the end of systole",
+              "unit": "mL",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Mean Arterial Pressure (MAP)",
+          "description": "Calculates mean arterial pressure to assess perfusion.",
+          "formula": "MAP = [(2 × Diastolic) + Systolic] / 3",
+          "result_unit": "mmHg",
+          "parameters": [
+            {
+              "name": "systolic",
+              "description": "Systolic blood pressure",
+              "unit": "mmHg",
+              "type": "float"
+            },
+            {
+              "name": "diastolic",
+              "description": "Diastolic blood pressure",
+              "unit": "mmHg",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Systemic Vascular Resistance (SVR)",
+          "description": "Calculates systemic vascular resistance to assess afterload.",
+          "formula": "SVR (dyn·s/cm⁵) = [(MAP - CVP) × 80] / Cardiac Output",
+          "result_unit": "dyn·s/cm⁵",
+          "parameters": [
+            {
+              "name": "map",
+              "description": "Mean arterial pressure",
+              "unit": "mmHg",
+              "type": "float"
+            },
+            {
+              "name": "cvp",
+              "description": "Central venous pressure",
+              "unit": "mmHg",
+              "type": "float"
+            },
+            {
+              "name": "cardiacOutput",
+              "description": "Cardiac output",
+              "unit": "L/min",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Pulse Pressure",
+          "description": "Calculates the pulse pressure to assess cardiovascular health.",
+          "formula": "Pulse Pressure = Systolic Blood Pressure - Diastolic Blood Pressure",
+          "result_unit": "mmHg",
+          "parameters": [
+            {
+              "name": "systolicBP",
+              "description": "Systolic blood pressure",
+              "unit": "mmHg",
+              "type": "float"
+            },
+            {
+              "name": "diastolicBP",
+              "description": "Diastolic blood pressure",
+              "unit": "mmHg",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Ejection Fraction",
+          "description": "Calculates the ejection fraction to assess heart function.",
+          "formula": "Ejection Fraction (%) = (Stroke Volume / End-Diastolic Volume) × 100",
+          "result_unit": "%",
+          "parameters": [
+            {
+              "name": "strokeVolume",
+              "description": "Volume of blood pumped per heartbeat",
+              "unit": "mL",
+              "type": "float"
+            },
+            {
+              "name": "endDiastolicVolume",
+              "description": "Volume of blood in the ventricle at the end of diastole",
+              "unit": "mL",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Cardiac Index",
+          "description": "Calculates the cardiac index to assess cardiac output relative to body surface area.",
+          "formula": "Cardiac Index (L/min/m²) = Cardiac Output (L/min) / Body Surface Area (m²)",
+          "result_unit": "L/min/m²",
+          "parameters": [
+            {
+              "name": "cardiacOutput",
+              "description": "Cardiac output",
+              "unit": "L/min",
+              "type": "float"
+            },
+            {
+              "name": "bodySurfaceArea",
+              "description": "Body surface area",
+              "unit": "m²",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Left Ventricular Stroke Work Index (LVSWI)",
+          "description": "Calculates the left ventricular stroke work index to assess cardiac performance.",
+          "formula": "LVSWI (g·m/m²) = (MAP - PCWP) × Stroke Volume Index × 0.0136",
+          "result_unit": "g·m/m²",
+          "parameters": [
+            {
+              "name": "map",
+              "description": "Mean arterial pressure",
+              "unit": "mmHg",
+              "type": "float"
+            },
+            {
+              "name": "pcwp",
+              "description": "Pulmonary capillary wedge pressure",
+              "unit": "mmHg",
+              "type": "float"
+            },
+            {
+              "name": "strokeVolumeIndex",
+              "description": "Stroke volume index",
+              "unit": "mL/m²",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Rate Pressure Product (RPP)",
+          "description": "Calculates the rate pressure product to assess myocardial oxygen demand.",
+          "formula": "RPP = Heart Rate × Systolic Blood Pressure",
+          "result_unit": "unitless",
+          "parameters": [
+            {
+              "name": "heartRate",
+              "description": "Heart rate",
+              "unit": "beats/min",
+              "type": "float"
+            },
+            {
+              "name": "systolicBP",
+              "description": "Systolic blood pressure",
+              "unit": "mmHg",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Fractional Shortening",
+          "description": "Calculates fractional shortening to assess left ventricular function.",
+          "formula": "Fractional Shortening (%) = [(LVEDD - LVESD) / LVEDD] × 100",
+          "result_unit": "%",
+          "parameters": [
+            {
+              "name": "lvedd",
+              "description": "Left ventricular end-diastolic diameter",
+              "unit": "mm",
+              "type": "float"
+            },
+            {
+              "name": "lvesd",
+              "description": "Left ventricular end-systolic diameter",
+              "unit": "mm",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "QTc Interval",
+          "description": "Calculates the corrected QT interval for heart rate.",
+          "formula": "QTc (ms) = QT Interval / √(RR Interval)",
+          "result_unit": "ms",
+          "parameters": [
+            {
+              "name": "qtInterval",
+              "description": "Measured QT interval",
+              "unit": "ms",
+              "type": "float"
+            },
+            {
+              "name": "rrInterval",
+              "description": "RR interval",
+              "unit": "s",
+              "type": "float"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Body Mechanisms and Growth",
+      "slug": "body-mechanisms-growth",
+      "description": "Monitor growth patterns and physiological functions. Features body surface area calculations, growth percentiles, and metabolic assessments. Essential for developmental tracking and treatment planning.",
+      "calculations": [
+        {
+          "name": "Bone Mineral Density (BMD)",
+          "description": "Calculates bone mineral density to assess bone health.",
+          "formula": "BMD (g/cm²) = Bone Mass / Bone Area",
+          "result_unit": "g/cm²",
+          "parameters": [
+            {
+              "name": "boneMass",
+              "description": "Mass of the bone",
+              "unit": "g",
+              "type": "float"
+            },
+            {
+              "name": "boneArea",
+              "description": "Area of the bone",
+              "unit": "cm²",
+              "type": "float"
+            }
+          ]
+        },
+
+        {
+          "name": "Waist-to-Hip Ratio",
+          "description": "Calculates the waist-to-hip ratio to assess body fat distribution.",
+          "formula": "Waist-to-Hip Ratio = Waist Circumference / Hip Circumference",
+          "result_unit": "ratio",
+          "parameters": [
+            {
+              "name": "waistCircumference",
+              "description": "Circumference of the waist",
+              "unit": "cm",
+              "type": "float"
+            },
+            {
+              "name": "hipCircumference",
+              "description": "Circumference of the hips",
+              "unit": "cm",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Growth Hormone Dosage",
+          "description": "Calculates the dosage of growth hormone based on weight or body surface area.",
+          "formula": "Dosage (mg/day) = Weight (kg) × Dosage Factor or BSA × Dosage Factor",
+          "result_unit": "mg/day",
+          "parameters": [
+            {
+              "name": "weight",
+              "description": "Patient's weight",
+              "unit": "kg",
+              "type": "float"
+            },
+            {
+              "name": "bsa",
+              "description": "Body surface area",
+              "unit": "m²",
+              "type": "float"
+            },
+            {
+              "name": "dosageFactor",
+              "description": "Dosage factor based on clinical guidelines",
+              "unit": "mg/kg or mg/m²",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Total Energy Expenditure (TEE)",
+          "description": "Calculates the total energy expenditure based on BMR and activity level.",
+          "formula": "TEE (kcal/day) = BMR × Activity Factor",
+          "result_unit": "kcal/day",
+          "parameters": [
+            {
+              "name": "bmr",
+              "description": "Basal metabolic rate",
+              "unit": "kcal/day",
+              "type": "float"
+            },
+            {
+              "name": "activityFactor",
+              "description": "Activity level multiplier",
+              "unit": "N/A",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Body Surface Area (BSA)",
+          "description": "Calculates the body surface area based on height and weight, often used for determining chemotherapy dosage.",
+          "formula": "BSA (m²) = √[(height (cm) × weight (kg)) / 3600]",
+          "result_unit": "m²",
+          "parameters": [
+            {
+              "name": "height",
+              "description": "Patient's height",
+              "unit": "cm",
+              "type": "float"
+            },
+            {
+              "name": "weight",
+              "description": "Patient's weight",
+              "unit": "kg",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Lean Body Mass (LBM)",
+          "description": "Calculates lean body mass based on weight and body fat percentage.",
+          "formula": "LBM (kg) = Weight × (1 - Body Fat Percentage / 100)",
+          "result_unit": "kg",
+          "parameters": [
+            {
+              "name": "weight",
+              "description": "Patient's weight",
+              "unit": "kg",
+              "type": "float"
+            },
+            {
+              "name": "bodyFatPercentage",
+              "description": "Body fat percentage",
+              "unit": "%",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Growth Velocity",
+          "description": "Calculates the growth velocity over a specific time period.",
+          "formula": "Growth Velocity (cm/year) = (Height at End - Height at Start) / Time Period",
+          "result_unit": "cm/year",
+          "parameters": [
+            {
+              "name": "heightAtEnd",
+              "description": "Height at the end of the time period",
+              "unit": "cm",
+              "type": "float"
+            },
+            {
+              "name": "heightAtStart",
+              "description": "Height at the start of the time period",
+              "unit": "cm",
+              "type": "float"
+            },
+            {
+              "name": "timePeriod",
+              "description": "Duration of the time period",
+              "unit": "years",
+              "type": "float"
+            }
+          ]
+        },
+
+        {
+          "name": "Basal Metabolic Rate (BMR)",
+          "description": "Calculates the basal metabolic rate to estimate energy expenditure at rest.",
+          "formula": "BMR (kcal/day) = 10 × Weight (kg) + 6.25 × Height (cm) - 5 × Age (years) + (5 if male, -161 if female)",
+          "result_unit": "kcal/day",
+          "parameters": [
+            {
+              "name": "weight",
+              "description": "Patient's weight",
+              "unit": "kg",
+              "type": "float"
+            },
+            {
+              "name": "height",
+              "description": "Patient's height",
+              "unit": "cm",
+              "type": "float"
+            },
+            {
+              "name": "age",
+              "description": "Patient's age",
+              "unit": "years",
+              "type": "integer"
+            },
+            {
+              "name": "sex",
+              "description": "Patient's biological sex",
+              "unit": "N/A",
+              "type": "string",
+              "options": ["Male", "Female"]
+            }
+          ]
+        },
+
+        {
+          "name": "Body Fat Percentage",
+          "description": "Estimates body fat percentage using skinfold measurements or BMI.",
+          "formula": "Body Fat (%) = (1.20 × BMI) + (0.23 × Age) - (10.8 × Sex) - 5.4 (Sex: 1 for male, 0 for female)",
+          "result_unit": "%",
+          "parameters": [
+            {
+              "name": "bmi",
+              "description": "Body Mass Index",
+              "unit": "kg/m²",
+              "type": "float"
+            },
+            {
+              "name": "age",
+              "description": "Patient's age",
+              "unit": "years",
+              "type": "integer"
+            },
+            {
+              "name": "sex",
+              "description": "Patient's biological sex",
+              "unit": "N/A",
+              "type": "string",
+              "options": ["Male", "Female"]
+            }
+          ]
+        },
+
+        {
+          "name": "Resting Energy Expenditure (REE)",
+          "description": "Calculates the resting energy expenditure to estimate daily caloric needs using the Mifflin-St Jeor equation.",
+          "formula": "REE (kcal/day) = (10 × Weight (kg)) + (6.25 × Height (cm)) - (5 × Age (years)) + (5 if male, -161 if female)",
+          "result_unit": "kcal/day",
+          "parameters": [
+            {
+              "name": "weight",
+              "description": "Patient's weight",
+              "unit": "kg",
+              "type": "float"
+            },
+            {
+              "name": "height",
+              "description": "Patient's height",
+              "unit": "cm",
+              "type": "float"
+            },
+            {
+              "name": "age",
+              "description": "Patient's age",
+              "unit": "years",
+              "type": "integer"
+            },
+            {
+              "name": "sex",
+              "description": "Patient's biological sex",
+              "unit": "N/A",
+              "type": "string",
+              "options": ["Male", "Female"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Infection Control and Epidemiology",
+      "slug": "infection-control-epidemiology",
+      "description": "Calculate infection rates, transmission risks, and isolation requirements. Includes epidemic curves, transmission patterns, and prevention metrics. Supports evidence-based infection control measures.",
+      "calculations": [
+        {
+          "name": "Basic Reproduction Number (R0)",
+          "description": "Estimates the average number of secondary infections caused by one infected individual in a fully susceptible population.",
+          "formula": "R0 = (Contact Rate × Transmission Probability × Duration of Infectiousness)",
+          "result_unit": "unitless",
+          "parameters": [
+            {
+              "name": "contactRate",
+              "description": "Average number of contacts per person per unit time",
+              "unit": "contacts/time",
+              "type": "float"
+            },
+            {
+              "name": "transmissionProbability",
+              "description": "Probability of disease transmission per contact",
+              "unit": "percentage (expressed as decimal)",
+              "type": "float"
+            },
+            {
+              "name": "durationOfInfectiousness",
+              "description": "Duration an individual remains infectious",
+              "unit": "time",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Effective Reproduction Number (Rt)",
+          "description": "Estimates the average number of secondary infections caused by one infected individual in a partially immune population.",
+          "formula": "Rt = R0 × (Susceptible Population / Total Population)",
+          "result_unit": "unitless",
+          "parameters": [
+            {
+              "name": "r0",
+              "description": "Basic reproduction number",
+              "unit": "unitless",
+              "type": "float"
+            },
+            {
+              "name": "susceptiblePopulation",
+              "description": "Number of susceptible individuals in the population",
+              "unit": "count",
+              "type": "integer"
+            },
+            {
+              "name": "totalPopulation",
+              "description": "Total population size",
+              "unit": "count",
+              "type": "integer"
+            }
+          ]
+        },
+        {
+          "name": "Infection Fatality Rate (IFR)",
+          "description": "Calculates the proportion of deaths among all infected individuals, including asymptomatic cases.",
+          "formula": "IFR (%) = (Number of Deaths / Total Infected Individuals) × 100",
+          "result_unit": "%",
+          "parameters": [
+            {
+              "name": "numberOfDeaths",
+              "description": "Total number of deaths due to the disease",
+              "unit": "count",
+              "type": "integer"
+            },
+            {
+              "name": "totalInfectedIndividuals",
+              "description": "Total number of infected individuals, including asymptomatic cases",
+              "unit": "count",
+              "type": "integer"
+            }
+          ]
+        },
+        {
+          "name": "Serial Interval",
+          "description": "Calculates the average time between successive cases in a chain of transmission.",
+          "formula": "Serial Interval = Time of Symptom Onset in Secondary Case - Time of Symptom Onset in Primary Case",
+          "result_unit": "time",
+          "parameters": [
+            {
+              "name": "secondaryCaseOnset",
+              "description": "Time of symptom onset in the secondary case",
+              "unit": "time",
+              "type": "float"
+            },
+            {
+              "name": "primaryCaseOnset",
+              "description": "Time of symptom onset in the primary case",
+              "unit": "time",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Quarantine Effectiveness",
+          "description": "Estimates the reduction in transmission due to quarantine measures.",
+          "formula": "Effectiveness (%) = (1 - (Transmission with Quarantine / Transmission without Quarantine)) × 100",
+          "result_unit": "%",
+          "parameters": [
+            {
+              "name": "transmissionWithQuarantine",
+              "description": "Number of transmissions observed with quarantine measures",
+              "unit": "count",
+              "type": "integer"
+            },
+            {
+              "name": "transmissionWithoutQuarantine",
+              "description": "Number of transmissions observed without quarantine measures",
+              "unit": "count",
+              "type": "integer"
+            }
+          ]
+        },
+
+        {
+          "name": "Case Fatality Rate (CFR)",
+          "description": "Calculates the proportion of deaths among confirmed cases of a disease.",
+          "formula": "CFR (%) = (Number of Deaths / Number of Confirmed Cases) × 100",
+          "result_unit": "%",
+          "parameters": [
+            {
+              "name": "numberOfDeaths",
+              "description": "Total number of deaths due to the disease",
+              "unit": "count",
+              "type": "integer"
+            },
+            {
+              "name": "numberOfConfirmedCases",
+              "description": "Total number of confirmed cases of the disease",
+              "unit": "count",
+              "type": "integer"
+            }
+          ]
+        },
+        {
+          "name": "Attack Rate",
+          "description": "Calculates the proportion of individuals who become ill after exposure to a disease.",
+          "formula": "Attack Rate (%) = (Number of Ill Individuals / Total Population at Risk) × 100",
+          "result_unit": "%",
+          "parameters": [
+            {
+              "name": "numberOfIllIndividuals",
+              "description": "Number of individuals who became ill",
+              "unit": "count",
+              "type": "integer"
+            },
+            {
+              "name": "totalPopulationAtRisk",
+              "description": "Total population exposed to the risk of infection",
+              "unit": "count",
+              "type": "integer"
+            }
+          ]
+        },
+        {
+          "name": "Incidence Rate",
+          "description": "Calculates the rate of new cases of a disease in a population over a specific time period.",
+          "formula": "Incidence Rate = (Number of New Cases / Population at Risk) × Time",
+          "result_unit": "cases per unit time",
+          "parameters": [
+            {
+              "name": "numberOfNewCases",
+              "description": "Number of new cases of the disease",
+              "unit": "count",
+              "type": "integer"
+            },
+            {
+              "name": "populationAtRisk",
+              "description": "Population at risk during the time period",
+              "unit": "count",
+              "type": "integer"
+            },
+            {
+              "name": "time",
+              "description": "Time period over which cases are measured",
+              "unit": "time",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Secondary Attack Rate",
+          "description": "Calculates the proportion of secondary cases among contacts of primary cases.",
+          "formula": "Secondary Attack Rate (%) = (Number of Secondary Cases / Number of Exposed Contacts) × 100",
+          "result_unit": "%",
+          "parameters": [
+            {
+              "name": "numberOfSecondaryCases",
+              "description": "Number of secondary cases",
+              "unit": "count",
+              "type": "integer"
+            },
+            {
+              "name": "numberOfExposedContacts",
+              "description": "Number of contacts exposed to the primary case",
+              "unit": "count",
+              "type": "integer"
+            }
+          ]
+        },
+        {
+          "name": "Herd Immunity Threshold",
+          "description": "Calculates the proportion of the population that needs to be immune to stop disease transmission.",
+          "formula": "Herd Immunity Threshold (%) = (1 - (1 / R0)) × 100",
+          "result_unit": "%",
+          "parameters": [
+            {
+              "name": "r0",
+              "description": "Basic reproduction number",
+              "unit": "unitless",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Prevalence Rate",
+          "description": "Calculates the proportion of individuals in a population who have a disease at a specific point in time.",
+          "formula": "Prevalence Rate (%) = (Number of Existing Cases / Total Population) × 100",
+          "result_unit": "%",
+          "parameters": [
+            {
+              "name": "numberOfExistingCases",
+              "description": "Number of individuals with the disease",
+              "unit": "count",
+              "type": "integer"
+            },
+            {
+              "name": "totalPopulation",
+              "description": "Total population at the time of measurement",
+              "unit": "count",
+              "type": "integer"
+            }
+          ]
+        },
+        {
+          "name": "Doubling Time",
+          "description": "Calculates the time it takes for the number of cases to double.",
+          "formula": "Doubling Time = ln(2) / Growth Rate",
+          "result_unit": "time",
+          "parameters": [
+            {
+              "name": "growthRate",
+              "description": "Rate of growth of the disease",
+              "unit": "rate",
+              "type": "float"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Electrolyte Replacement",
+      "slug": "electrolyte-replacement",
+      "description": "Determine electrolyte replacement needs and correction rates. Calculate fluid deficits, replacement rates, and maintenance requirements. Ensures safe and effective electrolyte management.",
+      "calculations": [
+        {
+          "name": "Sodium Deficit",
+          "description": "Calculates the sodium deficit to correct hyponatremia.",
+          "formula": "Sodium Deficit (mEq) = (Desired Sodium - Current Sodium) × Total Body Water",
+          "result_unit": "mEq",
+          "parameters": [
+            {
+              "name": "desiredSodium",
+              "description": "Target sodium level",
+              "unit": "mEq/L",
+              "type": "float"
+            },
+            {
+              "name": "currentSodium",
+              "description": "Current sodium level",
+              "unit": "mEq/L",
+              "type": "float"
+            },
+            {
+              "name": "totalBodyWater",
+              "description": "Total body water (estimated as 0.6 × body weight in males, 0.5 × body weight in females)",
+              "unit": "L",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Chloride Replacement",
+          "description": "Calculates the chloride replacement required to correct hypochloremia.",
+          "formula": "Chloride Replacement (mEq) = (Desired Chloride - Current Chloride) × Total Body Water",
+          "result_unit": "mEq",
+          "parameters": [
+            {
+              "name": "desiredChloride",
+              "description": "Target chloride level",
+              "unit": "mEq/L",
+              "type": "float"
+            },
+            {
+              "name": "currentChloride",
+              "description": "Current chloride level",
+              "unit": "mEq/L",
+              "type": "float"
+            },
+            {
+              "name": "totalBodyWater",
+              "description": "Total body water (estimated as 0.6 × body weight in males, 0.5 × body weight in females)",
+              "unit": "L",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Bicarbonate Replacement",
+          "description": "Calculates the bicarbonate replacement required to correct metabolic acidosis.",
+          "formula": "Bicarbonate Replacement (mEq) = Base Deficit × Total Body Water",
+          "result_unit": "mEq",
+          "parameters": [
+            {
+              "name": "baseDeficit",
+              "description": "Base deficit (difference between normal and current bicarbonate levels)",
+              "unit": "mEq/L",
+              "type": "float"
+            },
+            {
+              "name": "totalBodyWater",
+              "description": "Total body water (estimated as 0.6 × body weight in males, 0.5 × body weight in females)",
+              "unit": "L",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Phosphate Correction for Calcium",
+          "description": "Adjusts phosphate replacement based on calcium levels to avoid precipitation.",
+          "formula": "Adjusted Phosphate (mmol) = Phosphate Replacement × Correction Factor",
+          "result_unit": "mmol",
+          "parameters": [
+            {
+              "name": "phosphateReplacement",
+              "description": "Calculated phosphate replacement",
+              "unit": "mmol",
+              "type": "float"
+            },
+            {
+              "name": "correctionFactor",
+              "description": "Correction factor based on calcium levels",
+              "unit": "unitless",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Hyperkalemia Correction",
+          "description": "Calculates the reduction in potassium levels required to correct hyperkalemia.",
+          "formula": "Potassium Reduction (mEq/L) = Current Potassium - Target Potassium",
+          "result_unit": "mEq/L",
+          "parameters": [
+            {
+              "name": "currentPotassium",
+              "description": "Current potassium level",
+              "unit": "mEq/L",
+              "type": "float"
+            },
+            {
+              "name": "targetPotassium",
+              "description": "Target potassium level",
+              "unit": "mEq/L",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Potassium Replacement",
+          "description": "Calculates the potassium replacement required to correct hypokalemia.",
+          "formula": "Potassium Replacement (mEq) = (Desired Potassium - Current Potassium) × Total Body Potassium",
+          "result_unit": "mEq",
+          "parameters": [
+            {
+              "name": "desiredPotassium",
+              "description": "Target potassium level",
+              "unit": "mEq/L",
+              "type": "float"
+            },
+            {
+              "name": "currentPotassium",
+              "description": "Current potassium level",
+              "unit": "mEq/L",
+              "type": "float"
+            },
+            {
+              "name": "totalBodyPotassium",
+              "description": "Total body potassium (estimated as 50 mEq/L × body weight in kg)",
+              "unit": "mEq",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Calcium Correction for Albumin",
+          "description": "Adjusts calcium level based on albumin concentration.",
+          "formula": "Corrected Calcium (mg/dL) = Measured Calcium + 0.8 × (4 - Albumin)",
+          "result_unit": "mg/dL",
+          "parameters": [
+            {
+              "name": "measuredCalcium",
+              "description": "Measured calcium level",
+              "unit": "mg/dL",
+              "type": "float"
+            },
+            {
+              "name": "albumin",
+              "description": "Albumin level",
+              "unit": "g/dL",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Magnesium Replacement",
+          "description": "Calculates the magnesium replacement required to correct hypomagnesemia.",
+          "formula": "Magnesium Replacement (mEq) = (Desired Magnesium - Current Magnesium) × Total Body Magnesium",
+          "result_unit": "mEq",
+          "parameters": [
+            {
+              "name": "desiredMagnesium",
+              "description": "Target magnesium level",
+              "unit": "mEq/L",
+              "type": "float"
+            },
+            {
+              "name": "currentMagnesium",
+              "description": "Current magnesium level",
+              "unit": "mEq/L",
+              "type": "float"
+            },
+            {
+              "name": "totalBodyMagnesium",
+              "description": "Total body magnesium (estimated as 0.2 × body weight in kg)",
+              "unit": "mEq",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Phosphate Replacement",
+          "description": "Calculates the phosphate replacement required to correct hypophosphatemia.",
+          "formula": "Phosphate Replacement (mmol) = (Desired Phosphate - Current Phosphate) × Total Body Phosphate",
+          "result_unit": "mmol",
+          "parameters": [
+            {
+              "name": "desiredPhosphate",
+              "description": "Target phosphate level",
+              "unit": "mmol/L",
+              "type": "float"
+            },
+            {
+              "name": "currentPhosphate",
+              "description": "Current phosphate level",
+              "unit": "mmol/L",
+              "type": "float"
+            },
+            {
+              "name": "totalBodyPhosphate",
+              "description": "Total body phosphate (estimated as 0.3 × body weight in kg)",
+              "unit": "mmol",
+              "type": "float"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Others",
+      "slug": "others",
+      "description": "Access additional medical calculations for specialized care scenarios. Includes oxygen delivery calculations, burn assessment, and specialty-specific tools. Supports comprehensive medical decision-making.",
+      "calculations": [
+        {
+          "name": "Parkland Formula",
+          "description": "Calculates fluid resuscitation requirements for burn patients.",
+          "formula": "Total Fluid (mL) = 4 × Weight (kg) × TBSA (%)",
+          "result_unit": "mL",
+          "parameters": [
+            {
+              "name": "weight",
+              "description": "Patient's weight",
+              "unit": "kg",
+              "type": "float"
+            },
+            {
+              "name": "tbsa",
+              "description": "Total body surface area affected by burns",
+              "unit": "%",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Oxygen Delivery",
+          "description": "Calculates oxygen delivery to tissues.",
+          "formula": "Oxygen Delivery (mL/min) = Cardiac Output × (1.34 × Hemoglobin × SaO2 + (PaO2 × 0.003))",
+          "result_unit": "mL/min",
+          "parameters": [
+            {
+              "name": "cardiacOutput",
+              "description": "Cardiac output",
+              "unit": "L/min",
+              "type": "float"
+            },
+            {
+              "name": "hemoglobin",
+              "description": "Hemoglobin concentration",
+              "unit": "g/dL",
+              "type": "float"
+            },
+            {
+              "name": "saO2",
+              "description": "Arterial oxygen saturation",
+              "unit": "% (expressed as decimal (0-1))",
+              "type": "float"
+            },
+            {
+              "name": "paO2",
+              "description": "Partial pressure of oxygen",
+              "unit": "mmHg",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Ideal Body Weight (IBW)",
+          "description": "Calculates the ideal body weight based on height and sex.",
+          "formula": "IBW (kg) = 50 + 2.3 × (Height (in) - 60) for males, 45.5 + 2.3 × (Height (in) - 60) for females",
+          "result_unit": "kg",
+          "parameters": [
+            {
+              "name": "height",
+              "description": "Patient's height",
+              "unit": "in",
+              "type": "float"
+            },
+            {
+              "name": "sex",
+              "description": "Patient's biological sex",
+              "unit": "N/A",
+              "type": "string",
+              "options": ["Male", "Female"]
+            }
+          ]
+        },
+        {
+          "name": "Adjusted Body Weight (ABW)",
+          "description": "Calculates adjusted body weight for obese patients.",
+          "formula": "ABW (kg) = IBW + 0.4 × (Actual Weight - IBW)",
+          "result_unit": "kg",
+          "parameters": [
+            {
+              "name": "ibw",
+              "description": "Ideal body weight",
+              "unit": "kg",
+              "type": "float"
+            },
+            {
+              "name": "actualWeight",
+              "description": "Patient's actual weight",
+              "unit": "kg",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Corrected Sodium",
+          "description": "Adjusts sodium level for hyperglycemia.",
+          "formula": "Corrected Sodium (mEq/L) = Measured Sodium + 0.016 × (Glucose - 100)",
+          "result_unit": "mEq/L",
+          "parameters": [
+            {
+              "name": "measuredSodium",
+              "description": "Measured sodium level",
+              "unit": "mEq/L",
+              "type": "float"
+            },
+            {
+              "name": "glucose",
+              "description": "Blood glucose level",
+              "unit": "mg/dL",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "A-a Gradient",
+          "description": "Calculates the alveolar-arterial oxygen gradient.",
+          "formula": "A-a Gradient = PAO2 - PaO2",
+          "result_unit": "mmHg",
+          "parameters": [
+            {
+              "name": "PAO2",
+              "description": "Alveolar oxygen pressure",
+              "unit": "mmHg",
+              "type": "float"
+            },
+            {
+              "name": "PaO2",
+              "description": "Arterial oxygen pressure",
+              "unit": "mmHg",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Fractional Excretion of Sodium (FENa)",
+          "description": "Assesses kidney function and differentiates between prerenal and intrinsic renal failure.",
+          "formula": "FENa (%) = [(Urine Sodium × Plasma Creatinine) / (Plasma Sodium × Urine Creatinine)] × 100",
+          "result_unit": "%",
+          "parameters": [
+            {
+              "name": "urineSodium",
+              "description": "Urine sodium concentration",
+              "unit": "mEq/L",
+              "type": "float"
+            },
+            {
+              "name": "plasmaCreatinine",
+              "description": "Plasma creatinine level",
+              "unit": "mg/dL",
+              "type": "float"
+            },
+            {
+              "name": "plasmaSodium",
+              "description": "Plasma sodium concentration",
+              "unit": "mEq/L",
+              "type": "float"
+            },
+            {
+              "name": "urineCreatinine",
+              "description": "Urine creatinine level",
+              "unit": "mg/dL",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Serum Osmolality",
+          "description": "Calculates serum osmolality to assess hydration status.",
+          "formula": "Serum Osmolality (mOsm/kg) = 2 × Sodium + Glucose / 18 + BUN / 2.8",
+          "result_unit": "mOsm/kg",
+          "parameters": [
+            {
+              "name": "sodium",
+              "description": "Sodium level",
+              "unit": "mEq/L",
+              "type": "float"
+            },
+            {
+              "name": "glucose",
+              "description": "Blood glucose level",
+              "unit": "mg/dL",
+              "type": "float"
+            },
+            {
+              "name": "bun",
+              "description": "Blood urea nitrogen level",
+              "unit": "mg/dL",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Winter's Formula",
+          "description": "Predicts the expected PaCO2 in metabolic acidosis.",
+          "formula": "Expected PaCO2 = (1.5 × HCO3-) + 8 ± 2",
+          "result_unit": "mmHg",
+          "parameters": [
+            {
+              "name": "hco3",
+              "description": "Bicarbonate level",
+              "unit": "mEq/L",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Alveolar Partial Pressure of Oxygen (PAO2)",
+          "description": "Calculates the alveolar partial pressure of oxygen (PAO2).",
+          "formula": "PAO2 = FiO2 × (Barometric Pressure - Water Vapor Pressure) - (PaCO2 / Respiratory Quotient)",
+          "result_unit": "mmHg",
+          "parameters": [
+            {
+              "name": "fiO2",
+              "description": "Fraction of inspired oxygen (expressed as a decimal, e.g., 0.21 for room air)",
+              "unit": "unitless",
+              "type": "float"
+            },
+            {
+              "name": "barometricPressure",
+              "description": "Barometric pressure",
+              "unit": "mmHg",
+              "type": "float"
+            },
+            {
+              "name": "waterVaporPressure",
+              "description": "Water vapor pressure (typically 47 mmHg at body temperature)",
+              "unit": "mmHg",
+              "type": "float"
+            },
+            {
+              "name": "paCO2",
+              "description": "Arterial partial pressure of carbon dioxide",
+              "unit": "mmHg",
+              "type": "float"
+            },
+            {
+              "name": "respiratoryQuotient",
+              "description": "Respiratory quotient (typically 0.8)",
+              "unit": "unitless",
+              "type": "float"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Statistical Calculations",
+      "slug": "statistical-calculations",
+      "description": "Analyze healthcare data with statistical precision. Features probability calculations, significance testing, and outcome analysis. Essential for evidence-based practice and research interpretation.",
+      "calculations": [
+        {
+          "name": "Sensitivity",
+          "description": "Calculates the sensitivity of a diagnostic test.",
+          "formula": "Sensitivity (%) = (True Positives / (True Positives + False Negatives)) × 100",
+          "result_unit": "%",
+          "parameters": [
+            {
+              "name": "truePositives",
+              "description": "Number of true positive results",
+              "unit": "count",
+              "type": "integer"
+            },
+            {
+              "name": "falseNegatives",
+              "description": "Number of false negative results",
+              "unit": "count",
+              "type": "integer"
+            }
+          ]
+        },
+        {
+          "name": "Specificity",
+          "description": "Calculates the specificity of a diagnostic test.",
+          "formula": "Specificity (%) = (True Negatives / (True Negatives + False Positives)) × 100",
+          "result_unit": "%",
+          "parameters": [
+            {
+              "name": "trueNegatives",
+              "description": "Number of true negative results",
+              "unit": "count",
+              "type": "integer"
+            },
+            {
+              "name": "falsePositives",
+              "description": "Number of false positive results",
+              "unit": "count",
+              "type": "integer"
+            }
+          ]
+        },
+        {
+          "name": "Positive Predictive Value (PPV)",
+          "description": "Calculates the positive predictive value of a diagnostic test.",
+          "formula": "PPV (%) = (True Positives / (True Positives + False Positives)) × 100",
+          "result_unit": "%",
+          "parameters": [
+            {
+              "name": "truePositives",
+              "description": "Number of true positive results",
+              "unit": "count",
+              "type": "integer"
+            },
+            {
+              "name": "falsePositives",
+              "description": "Number of false positive results",
+              "unit": "count",
+              "type": "integer"
+            }
+          ]
+        },
+        {
+          "name": "Negative Predictive Value (NPV)",
+          "description": "Calculates the negative predictive value of a diagnostic test.",
+          "formula": "NPV (%) = (True Negatives / (True Negatives + False Negatives)) × 100",
+          "result_unit": "%",
+          "parameters": [
+            {
+              "name": "trueNegatives",
+              "description": "Number of true negative results",
+              "unit": "count",
+              "type": "integer"
+            },
+            {
+              "name": "falseNegatives",
+              "description": "Number of false negative results",
+              "unit": "count",
+              "type": "integer"
+            }
+          ]
+        },
+        {
+          "name": "Accuracy",
+          "description": "Calculates the accuracy of a diagnostic test.",
+          "formula": "Accuracy (%) = ((True Positives + True Negatives) / Total Cases) × 100",
+          "result_unit": "%",
+          "parameters": [
+            {
+              "name": "truePositives",
+              "description": "Number of true positive results",
+              "unit": "count",
+              "type": "integer"
+            },
+            {
+              "name": "trueNegatives",
+              "description": "Number of true negative results",
+              "unit": "count",
+              "type": "integer"
+            },
+            {
+              "name": "falsePositives",
+              "description": "Number of false positive results",
+              "unit": "count",
+              "type": "integer"
+            },
+            {
+              "name": "falseNegatives",
+              "description": "Number of false negative results",
+              "unit": "count",
+              "type": "integer"
+            }
+          ]
+        },
+        {
+          "name": "Prevalence",
+          "description": "Calculates the prevalence of a condition in a population.",
+          "formula": "Prevalence (%) = (Number of Cases / Total Population) × 100",
+          "result_unit": "%",
+          "parameters": [
+            {
+              "name": "numberOfCases",
+              "description": "Number of cases in the population",
+              "unit": "count",
+              "type": "integer"
+            },
+            {
+              "name": "totalPopulation",
+              "description": "Total population size",
+              "unit": "count",
+              "type": "integer"
+            }
+          ]
+        },
+        {
+          "name": "Positive Likelihood Ratio (LR+)",
+          "description": "Calculates the positive likelihood ratio of a diagnostic test.",
+          "formula": "LR+ = Sensitivity / (1 - Specificity)",
+          "result_unit": "unitless",
+          "parameters": [
+            {
+              "name": "sensitivity",
+              "description": "Sensitivity of the test (expressed as a decimal, e.g., 0.85)",
+              "unit": "unitless",
+              "type": "float"
+            },
+            {
+              "name": "specificity",
+              "description": "Specificity of the test (expressed as a decimal, e.g., 0.90)",
+              "unit": "unitless",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Negative Likelihood Ratio (LR-)",
+          "description": "Calculates the negative likelihood ratio of a diagnostic test.",
+          "formula": "LR- = (1 - Sensitivity) / Specificity",
+          "result_unit": "unitless",
+          "parameters": [
+            {
+              "name": "sensitivity",
+              "description": "Sensitivity of the test (expressed as a decimal, e.g., 0.85)",
+              "unit": "unitless",
+              "type": "float"
+            },
+            {
+              "name": "specificity",
+              "description": "Specificity of the test (expressed as a decimal, e.g., 0.90)",
+              "unit": "unitless",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Incidence Rate",
+          "description": "Calculates the incidence rate of a condition in a population over a specific time period.",
+          "formula": "Incidence Rate = (Number of New Cases / Population at Risk) × Time",
+          "result_unit": "cases per unit time",
+          "parameters": [
+            {
+              "name": "numberOfNewCases",
+              "description": "Number of new cases",
+              "unit": "count",
+              "type": "integer"
+            },
+            {
+              "name": "populationAtRisk",
+              "description": "Population at risk during the time period",
+              "unit": "count",
+              "type": "integer"
+            },
+            {
+              "name": "time",
+              "description": "Time period over which cases are measured",
+              "unit": "time",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Odds Ratio (OR)",
+          "description": "Calculates the odds ratio to measure the association between exposure and outcome.",
+          "formula": "OR = (Odds of Exposure in Cases / Odds of Exposure in Controls)",
+          "result_unit": "unitless",
+          "parameters": [
+            {
+              "name": "oddsExposureCases",
+              "description": "Odds of exposure in cases",
+              "unit": "unitless",
+              "type": "float"
+            },
+            {
+              "name": "oddsExposureControls",
+              "description": "Odds of exposure in controls",
+              "unit": "unitless",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Relative Risk (RR)",
+          "description": "Calculates the relative risk to compare the risk of an outcome between two groups.",
+          "formula": "RR = (Risk in Exposed Group / Risk in Unexposed Group)",
+          "result_unit": "unitless",
+          "parameters": [
+            {
+              "name": "riskExposedGroup",
+              "description": "Risk in the exposed group",
+              "unit": "unitless",
+              "type": "float"
+            },
+            {
+              "name": "riskUnexposedGroup",
+              "description": "Risk in the unexposed group",
+              "unit": "unitless",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "Number Needed to Treat (NNT)",
+          "description": "Calculates the number needed to treat to prevent one additional adverse outcome.",
+          "formula": "NNT = 1 / Absolute Risk Reduction",
+          "result_unit": "patients",
+          "parameters": [
+            {
+              "name": "absoluteRiskReduction",
+              "description": "Absolute reduction in risk between treatment and control groups",
+              "unit": "unitless",
+              "type": "float"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

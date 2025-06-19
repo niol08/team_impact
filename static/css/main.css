@@ -1,0 +1,13 @@
+.result-label {
+  color: #0f172a;
+  font-size: 1.2em;
+}
+.result-value {
+  color: #2563eb;
+  font-weight: bold;
+  font-size: 1.3em;
+}
+.result-unit {
+  color: #64748b;
+  font-size: 1em;
+}

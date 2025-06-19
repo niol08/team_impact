@@ -1,0 +1,26 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Clean background -->
+  <circle cx="50" cy="50" r="45" fill="#f8f9fa"/>
+  
+  <!-- Simple body outline -->
+  <path d="M50 15 L55 20 L55 40 L60 50 L55 70 L50 80 L45 70 L40 50 L45 40 L45 20 Z" 
+        fill="#e9ecef" stroke="#6c757d" stroke-width="1"/>
+  
+  <!-- Basic concentration curve -->
+  <path d="M20 75 C30 30, 40 40, 55 50 C70 60, 80 70, 80 75" 
+        fill="none" stroke="#dc3545" stroke-width="2"/>
+  
+  <!-- Therapeutic window -->
+  <line x1="20" y1="40" x2="80" y2="40" stroke="#6c757d" stroke-width="1" stroke-dasharray="3"/>
+  <line x1="20" y1="65" x2="80" y2="65" stroke="#6c757d" stroke-width="1" stroke-dasharray="3"/>
+  
+  <!-- Half-life marker -->
+  <line x1="40" y1="50" x2="40" y2="75" stroke="#6c757d" stroke-width="1" stroke-dasharray="3"/>
+  <text x="36" y="83" font-family="Arial" font-size="6" fill="#495057">t½</text>
+  
+  <!-- Simple ADME indicators -->
+  <text x="25" y="35" font-family="Arial" font-weight="bold" font-size="5" fill="#495057">A</text>
+  <text x="45" y="45" font-family="Arial" font-weight="bold" font-size="5" fill="#495057">D</text>
+  <text x="60" y="60" font-family="Arial" font-weight="bold" font-size="5" fill="#495057">M</text>
+  <text x="70" y="75" font-family="Arial" font-weight="bold" font-size="5" fill="#495057">E</text>
+</svg>

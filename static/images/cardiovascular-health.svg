@@ -1,0 +1,24 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Anatomical heart -->
+  <path d="M50 20 C60 10, 80 10, 85 25 C90 40, 80 50, 50 70 C20 50, 10 40, 15 25 C20 10, 40 10, 50 20" 
+        fill="#FF4757" stroke="#2C3E50" stroke-width="1"/>
+  
+  <!-- Blood vessels -->
+  <path d="M30 25 C20 35, 40 45, 30 55" fill="none" stroke="#4A90E2" stroke-width="2"/>
+  <path d="M70 25 C80 35, 60 45, 70 55" fill="none" stroke="#4A90E2" stroke-width="2"/>
+  
+  <!-- ECG line -->
+  <path d="M10 80 L25 80 L30 60 L35 95 L40 80 L45 80 L50 70 L55 80 L70 80" 
+        fill="none" stroke="#2C3E50" stroke-width="1"/>
+        
+  <!-- Vital measurements -->
+  <rect x="75" y="70" width="20" height="25" fill="white" stroke="#2C3E50"/>
+  <text x="77" y="78" font-family="Arial" font-size="4" fill="#2C3E50">BP</text>
+  <text x="77" y="83" font-family="Arial" font-size="4" fill="#FF4757">120/80</text>
+  <text x="77" y="88" font-family="Arial" font-size="4" fill="#2C3E50">HR</text>
+  <text x="77" y="93" font-family="Arial" font-size="4" fill="#FF4757">72</text>
+  
+  <!-- Coronary arteries -->
+  <path d="M45 30 C35 35, 40 40, 45 45" fill="none" stroke="#FF0000" stroke-width="1"/>
+  <path d="M55 30 C65 35, 60 40, 55 45" fill="none" stroke="#FF0000" stroke-width="1"/>
+</svg>

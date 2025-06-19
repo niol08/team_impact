@@ -1,0 +1,22 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Plate -->
+  <ellipse cx="50" cy="50" rx="40" ry="10" fill="#E8E8E8" stroke="#2C3E50"/>
+  <path d="M10 50 A40 10 0 0 1 90 50 L90 60 A40 10 0 0 1 10 60 Z" fill="#F5F5F5" stroke="#2C3E50"/>
+  
+  <!-- Food groups -->
+  <path d="M20 45 L40 45 L40 25 A10 10 0 0 1 20 25 Z" fill="#90EE90"/> <!-- Vegetables -->
+  <path d="M45 45 L65 45 L65 25 A10 10 0 0 1 45 25 Z" fill="#FFB6C1"/> <!-- Protein -->
+  <path d="M70 45 L80 45 L80 30 L70 30 Z" fill="#FFE4B5"/> <!-- Grains -->
+  
+  <!-- Water glass -->
+  <path d="M85 70 L95 70 L92 90 L88 90 Z" fill="#4A90E2" opacity="0.5"/>
+  
+  <!-- Calorie counter -->
+  <rect x="10" y="70" width="20" height="15" fill="white" stroke="#2C3E50"/>
+  <text x="12" y="80" font-family="Arial" font-size="6" fill="#2C3E50">kcal</text>
+  
+  <!-- Nutrition symbols -->
+  <text x="15" y="15" font-family="Arial" font-size="6" fill="#2C3E50">P</text>
+  <text x="25" y="15" font-family="Arial" font-size="6" fill="#2C3E50">C</text>
+  <text x="35" y="15" font-family="Arial" font-size="6" fill="#2C3E50">F</text>
+</svg>

@@ -1,0 +1,433 @@
+{% extends 'base.html' %} {% block head %}
+<title>Home</title>
+
+{% endblock %} {% block content %}
+<section id="hero">
+  <!-- Navigation bar -->
+  <nav class="navbar">
+    <div class="nav-main">
+      <a href="/" class="logo">
+        <img
+          src="{{ url_for('static', filename='images/logo.svg') }}"
+          alt="Home/logo"
+        />
+      </a>
+      <button class="hamburger" id="hamburger-btn" aria-label="Open menu">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <ul class="nav-links" id="nav-links">
+      <li>
+        <a
+          href="#"
+          data-bs-toggle="modal"
+          data-bs-target="#recentModal"
+          id="recent-link"
+          >Recent</a
+        >
+      </li>
+      <li><a href="#Categories">Categories</a></li>
+      <li><a href="#unit-conversions">Conversions</a></li>
+      <li><a href="#footer">Contact</a></li>
+      <!-- <li>
+            <button
+              id="toggle-mode"
+              type="button"
+              aria-label="Toggle dark mode"
+              style="
+                background: none;
+                border: none;
+                padding: 0;
+                cursor: pointer;
+              "
+            >
+              <img
+                class="mode"
+                src="{{ url_for('static', filename='images/dark.svg') }}"
+                alt="mode"
+              />
+            </button>
+          </li> -->
+    </ul>
+    <div id="nav-overlay"></div>
+  </nav>
+  <div class="hero-content">
+    <p class="search-description">Enter your clinical query.</p>
+    <div class="search">
+      <form action="/search" method="GET" class="search-form">
+        <div class="search-container">
+          <input
+            type="text"
+            name="query"
+            placeholder="Search..."
+            class="search-input"
+            id="search-input"
+          />
+          <img
+            src="{{ url_for('static', filename='images/search.svg') }}"
+            alt="Search"
+            class="search-icon"
+          />
+
+          <div id="live-search-results"></div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<section id="About">
+  <!-- About app -->
+  <div class="about-image">
+    <img
+      class="nurse-illustration"
+      src="{{ url_for('static', filename='images/Nurse.png') }}"
+      alt="nurse-illustration"
+    />
+  </div>
+  <div class="about-text">
+    <h2>Nursing Calculations made simple.</h2>
+    <p>
+      CLNICALC is a cutting-edge web tool designed to streamline nursing
+      informatics calculations. By simply entering patient data, nursing
+      professionals can instantly access accurate, actionable insights that
+      enhance decision-making and improve patient care. CLNICALC makes complex
+      calculations simple, enabling nurses to deliver precise, evidence-based
+      care with confidence.
+    </p>
+    <a href="#Categories" class="get-started"> Get Started </a>
+  </div>
+</section>
+
+<section id="calc-count-section" class="text-center py-5">
+  <div>
+    <span id="calc-counter">1</span>
+    <span id="calc-plus">+</span>
+  </div>
+  <div class="calc-label">Medical Calculations</div>
+</section>
+
+<section id="Categories">
+  <h2 class="Categories-header">Categories</h2>
+  <div class="grid-container">
+    {% for card in cards %}
+    <div
+      class="card"
+      data-slug="{{ card.slug }}"
+      onclick="redirectToDetailPage(this)"
+    >
+      <img
+        id="card-image"
+        src="{{ url_for('static', filename='images/' + card.slug + '.svg') }}"
+        alt="{{ card.title }}"
+      />
+      <h3>{{ card.title }}</h3>
+      <p>{{ card.description }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section id="conversions">
+  <div id="unit-conversions">
+    <h2>Unit Conversions</h2>
+    <div class="conversion-cards">
+      <!-- Length -->
+      <div class="conversion-card" data-category="length">
+        <h4>Length</h4>
+
+        <div class="conversion-row">
+          <div class="conversion-input-group">
+            <input type="number" class="conv-input from" placeholder="Value" />
+            <select class="conv-unit from form-select"></select>
+          </div>
+          <button class="swap-btn" title="Swap">&#8645;</button>
+          <div class="conversion-input-group">
+            <input
+              type="number"
+              class="conv-input to"
+              placeholder="Result"
+              readonly
+            />
+            <select class="conv-unit to form-select"></select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Weight -->
+      <div class="conversion-card" data-category="weight">
+        <h4>Weight</h4>
+        <div class="conversion-row">
+          <div class="conversion-input-group">
+            <input type="number" class="conv-input from" placeholder="Value" />
+            <select class="conv-unit from form-select"></select>
+          </div>
+          <button class="swap-btn" title="Swap">&#8645;</button>
+          <div class="conversion-input-group">
+            <input
+              type="number"
+              class="conv-input to"
+              placeholder="Result"
+              readonly
+            />
+            <select class="conv-unit to form-select"></select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Temperature -->
+      <div class="conversion-card" data-category="temperature">
+        <h4>Temperature</h4>
+        <div class="conversion-row">
+          <div class="conversion-input-group">
+            <input type="number" class="conv-input from" placeholder="Value" />
+            <select class="conv-unit from form-select"></select>
+          </div>
+          <button class="swap-btn" title="Swap">&#8645;</button>
+          <div class="conversion-input-group">
+            <input
+              type="number"
+              class="conv-input to"
+              placeholder="Result"
+              readonly
+            />
+            <select class="conv-unit to form-select"></select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pressure -->
+      <div class="conversion-card" data-category="pressure">
+        <h4>Pressure</h4>
+        <div class="conversion-row">
+          <div class="conversion-input-group">
+            <input type="number" class="conv-input from" placeholder="Value" />
+            <select class="conv-unit from form-select"></select>
+          </div>
+          <button class="swap-btn" title="Swap">&#8645;</button>
+          <div class="conversion-input-group">
+            <input
+              type="number"
+              class="conv-input to"
+              placeholder="Result"
+              readonly
+            />
+            <select class="conv-unit to form-select"></select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Area -->
+      <div class="conversion-card" data-category="area">
+        <h4>Area</h4>
+        <div class="conversion-row">
+          <div class="conversion-input-group">
+            <input type="number" class="conv-input from" placeholder="Value" />
+            <select class="conv-unit from form-select"></select>
+          </div>
+          <button class="swap-btn" title="Swap">&#8645;</button>
+          <div class="conversion-input-group">
+            <input
+              type="number"
+              class="conv-input to"
+              placeholder="Result"
+              readonly
+            />
+            <select class="conv-unit to form-select"></select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Volume -->
+      <div class="conversion-card" data-category="volume">
+        <h4>Volume</h4>
+        <div class="conversion-row">
+          <div class="conversion-input-group">
+            <input type="number" class="conv-input from" placeholder="Value" />
+            <select class="conv-unit from form-select"></select>
+          </div>
+          <button class="swap-btn" title="Swap">&#8645;</button>
+          <div class="conversion-input-group">
+            <input
+              type="number"
+              class="conv-input to"
+              placeholder="Result"
+              readonly
+            />
+            <select class="conv-unit to form-select"></select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Energy -->
+      <div class="conversion-card" data-category="energy">
+        <h4>Energy</h4>
+        <div class="conversion-row">
+          <div class="conversion-input-group">
+            <input type="number" class="conv-input from" placeholder="Value" />
+            <select class="conv-unit from form-select"></select>
+          </div>
+          <button class="swap-btn" title="Swap">&#8645;</button>
+          <div class="conversion-input-group">
+            <input
+              type="number"
+              class="conv-input to"
+              placeholder="Result"
+              readonly
+            />
+            <select class="conv-unit to form-select"></select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Infusion -->
+      <div class="conversion-card" data-category="infusion">
+        <h4>Infusion</h4>
+        <div class="conversion-row extra-row">
+          <select class="conv-analyte form-select">
+            <option value="">Select Analyte</option>
+            <option value="insulin">Insulin</option>
+            <option value="heparin">Heparin</option>
+            <option value="vitaminD">Vitamin D</option>
+            <option value="vitaminA">Vitamin A</option>
+            <option value="vitaminE">Vitamin E</option>
+            <option value="erythropoietin">Erythropoietin</option>
+          </select>
+          <input
+            type="number"
+            class="conv-concentration"
+            placeholder="Conc. (mg/mL)"
+          />
+
+          <div class="conversion-input-group">
+            <input type="number" class="conv-input from" placeholder="Value" />
+            <select class="conv-unit from form-select"></select>
+          </div>
+          <button class="swap-btn" title="Swap">&#8645;</button>
+          <div class="conversion-input-group">
+            <input
+              type="number"
+              class="conv-input to"
+              placeholder="Result"
+              readonly
+            />
+            <select class="conv-unit to form-select"></select>
+          </div>
+          <div class="conversion-warning">
+            IU conversions are only supported with mg or µg units.
+          </div>
+        </div>
+      </div>
+
+      <!-- Concentration  -->
+      <div class="conversion-card" data-category="concentration">
+        <h4>Concentration</h4>
+        <div class="conversion-row extra-row">
+          <select class="conv-analyte extra-margin form-select">
+            <option value="glucose">Glucose</option>
+            <option value="cholesterol">Cholesterol</option>
+            <option value="triglycerides">Triglycerides</option>
+            <option value="bun">BUN</option>
+            <option value="creatinine">Creatinine</option>
+            <option value="uric_acid">Uric Acid</option>
+            <option value="calcium">Calcium</option>
+          </select>
+          <div class="conversion-input-group">
+            <input type="number" class="conv-input from" placeholder="Value" />
+            <select class="conv-unit from form-select"></select>
+          </div>
+          <button class="swap-btn" title="Swap">&#8645;</button>
+          <div class="conversion-input-group">
+            <input
+              type="number"
+              class="conv-input to"
+              placeholder="Result"
+              readonly
+            />
+            <select class="conv-unit to form-select"></select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="footer">
+  <div class="footer-container">
+    <div class="footer-section">
+      <h4>Authors</h4>
+      <p>Mariam Siyanbola.</p>
+      <p>Eniola Oladejo.</p>
+    </div>
+    <div class="footer-section">
+      <h4>About</h4>
+      <p>
+        CLNICALC is a tool for nursing informatics calculations. It simplifies
+        complex calculations, enabling nurses to deliver precise, evidence-based
+        care with confidence.
+      </p>
+    </div>
+    <div class="footer-section">
+      <h4>Contact</h4>
+      <p>Email: contact@clinicalc.com</p>
+      <p>Phone: +123 456 7890</p>
+    </div>
+    <div class="footer-section">
+      <h4>Contribute</h4>
+      <p>
+        <a
+          href="https://github.com/niol08/CLINICALC.git"
+          target="_blank"
+          rel="noopener"
+          >Fork the repo here</a
+        >
+      </p>
+    </div>
+    <div class="footer-section">
+      <h4>Feedback</h4>
+      <p>
+        <a
+          href="https://forms.gle/dedzjteKgwVjqMqR8"
+          target="_blank"
+          rel="noopener"
+          >Give us your feedback</a
+        >
+        |
+        <a
+          href="https://github.com/niol08/CLINICALC/issues"
+          target="_blank"
+          rel="noopener"
+          >report an issue</a
+        >
+      </p>
+    </div>
+    <div class="footer-section">
+      <h4>Follow Us</h4>
+      <div class="social-icons">
+        <p>
+          <a href="#"><i class="bi bi-twitter-x"></i></a>
+        </p>
+        <p>
+          <a
+            href="https://github.com/niol08/CLINICALC.git"
+            target="_blank"
+            rel="noopener"
+            ><i class="bi bi-github"></i
+          ></a>
+        </p>
+        <p>
+          <a href="#"><i class="bi bi-linkedin"></i></a>
+        </p>
+        <p>
+          <a href="#"><i class="bi bi-envelope-open"></i></a>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>
+      &copy; <span id="current-year">2025</span> CLNICALC. All rights reserved.
+    </p>
+  </div>
+</footer>
+{% endblock %}
