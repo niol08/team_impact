@@ -51,7 +51,7 @@ def submit_claim():
     }
 
     response = requests.post(
-        "https://api.health.curacel.co/api/v1/claims",
+        "https://api.sandbox.claims.curacel.co/",
         json=payload,
         headers=headers
     )
