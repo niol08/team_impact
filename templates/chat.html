@@ -1,10 +1,192 @@
-{% extends 'base.html' %} {% block head %}
-<title>Chat AI</title>
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/chat.css') }}"
-/>
-{% endblock %} {% block content %}
-<div>Welcome to Chat AI!</div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Health Insurance Chatbox</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/chat.css') }}"
+    />
+  </head>
+  <body class="bg-light d-flex flex-column min-vh-100">
+    
+    <div
+      class="py-4 px-3 text-center text-white"
+      style="background: linear-gradient(90deg, #3d98f4 0%, #2563eb 100%)"
+    >
+      <h1 class="display-5 fw-bold mb-1">Health Insurance Chatbox</h1>
+      <p class="lead mb-0">
+        Start a conversation about your health insurance. Ask questions and get
+        instant assistance.
+      </p>
+    </div>
+    <div class="container my-4 flex-grow-1 d-flex flex-column">
+      <div class="chatbox-scroll px-2 flex-grow-1" id="chat-history">
+        <!-- Bot message -->
+        <div class="d-flex align-items-end mb-4">
+          <div
+            class="chat-avatar me-3"
+            style="
+              background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDV5bD1XGsvz1Ls_sTHc-xJ04Sv8TwkAolXpeDfqMnknP_-mM11kDwMv8GZEgcwvVqKkZRPzWFuYx1PWYSLZXFSH9hzODhNrkgSj29Zwl9lOzTyksKdVHTWnzvUuaGcllog9hfgeYBZGMdtuby_WYBs6_Uhzi8V9Ht3QMTxYKnXG0oRZfbNkjVvqyge91MYGTj8ePu1XOEvPhR2z10FJHX3_oKnQlUXe3bl6_DCjmArjIPbdkJmzgjo6y5oz3GIYxEpEBLqFdljoaU');
+            "
+          ></div>
+          <div>
+            <div class="small text-secondary mb-1">AI Chatbot</div>
+            <div class="bg-light border rounded-3 p-3 chat-message">
+              Hello! How can I assist you today?
+            </div>
+          </div>
+        </div>
 
-{% endblock %}
+        <div class="d-flex align-items-end justify-content-end mb-4">
+          <div>
+            <div class="small text-secondary text-end mb-1">Me</div>
+            <div class="bg-primary text-white rounded-3 p-3 chat-message">
+              What is the weather like today?
+            </div>
+          </div>
+          <div
+            class="chat-avatar ms-3"
+            style="
+              background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAxMNzSW-YIqx_CLuQDaXqlbQrSATb2YvCS-de292NU9dqfBvYili0HIaSAxEajh2amNuwlPEylTz2DR2EUHvyA_LHkcv_7kumhlgByBQdsesqnNLCjaFdrqZBQvBmbUJ3cC7lcsTfQ54gOEZ9owZpSzKMMp3PkYPPyjK0WAloVAXJChABJjb_AOafxls-kB3yQQQNAy4Xp_GwuKH3UzycZDO6S85uOupGqwVy8hZ8NHIiSIyjOdXOUzglcyLnPuCZRpb6S4Mnn-r4');
+            "
+          ></div>
+        </div>
+        <!-- Bot message -->
+        <div class="d-flex align-items-end mb-4">
+          <div
+            class="chat-avatar me-3"
+            style="
+              background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDV5bD1XGsvz1Ls_sTHc-xJ04Sv8TwkAolXpeDfqMnknP_-mM11kDwMv8GZEgcwvVqKkZRPzWFuYx1PWYSLZXFSH9hzODhNrkgSj29Zwl9lOzTyksKdVHTWnzvUuaGcllog9hfgeYBZGMdtuby_WYBs6_Uhzi8V9Ht3QMTxYKnXG0oRZfbNkjVvqyge91MYGTj8ePu1XOEvPhR2z10FJHX3_oKnQlUXe3bl6_DCjmArjIPbdkJmzgjo6y5oz3GIYxEpEBLqFdljoaU');
+            "
+          ></div>
+          <div>
+            <div class="small text-secondary mb-1">AI Chatbot</div>
+            <div class="bg-light border rounded-3 p-3 chat-message">
+              The weather is sunny with a high of 75 degrees.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Input Area -->
+    <form id="chat-form" class="container py-3 bg-white border-top">
+      <div class="row g-2 align-items-center">
+        <div class="col">
+          <textarea
+            id="chat-input"
+            placeholder="Type your message here..."
+            class="form-control"
+            autocomplete="off"
+            rows="1"
+            style="
+              min-height: 2.5rem;
+              max-height: 10rem;
+              resize: none;
+              overflow: hidden;
+            "
+          ></textarea>
+        </div>
+        <div
+          class="col-auto d-flex align-items-center justify-content-end gap-2"
+        >
+          
+          <label
+            for="file-input"
+            class="mb-0 d-flex align-items-center justify-content-center"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              stroke="#60758a"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M21.44 11.05l-9.19 9.19a5 5 0 0 1-7.07-7.07l9.19-9.19a3.5 3.5 0 1 1 4.95 4.95l-9.2 9.19"
+              ></path>
+            </svg>
+            <input id="file-input" type="file" class="d-none" />
+          </label>
+          <span
+            id="camera-btn"
+            class="d-flex align-items-center justify-content-center"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              stroke="#60758a"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"
+              ></path>
+              <circle cx="12" cy="13" r="4"></circle>
+            </svg>
+          </span>
+
+          <button
+            type="submit"
+            class="chat-send-btn ms-2 d-flex align-items-center justify-content-center"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    
+      const chatInput = document.getElementById("chat-input");
+      chatInput.addEventListener("input", function () {
+        this.style.height = "auto";
+        this.style.height = this.scrollHeight + "px";
+      });
+
+      // Camera button opens camera if supported
+      document.getElementById("camera-btn").onclick = function () {
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          navigator.mediaDevices
+            .getUserMedia({ video: true })
+            .then(function (stream) {
+              alert("Camera opened! (Implement preview or capture as needed)");
+              stream.getTracks().forEach((track) => track.stop());
+            })
+            .catch(function (err) {
+              alert("Camera access denied or not available.");
+            });
+        } else {
+          alert("Camera not supported in this browser.");
+        }
+      };
+    </script>
+  </body>
+</html>

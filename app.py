@@ -35,6 +35,14 @@ def execute_function(function_name, parameters):
     except Exception as e:
         return str(e)
 
+@app.route('/chat', methods=['GET', 'POST'])
+def chat():
+    if request.method == 'POST':
+        user_message = request.json.get('message')
+        # Here you would process the message and generate a response
+        response = f"You said: {user_message}"
+        return jsonify({'response': response})
+    return render_template('chat.html')
 
 @app.route('/explain', methods=['POST'])
 def explain():
