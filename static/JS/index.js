@@ -13,6 +13,19 @@ window.redirectToDetailPage = redirectToDetailPage;
 //   });
 // });
 
+const DEMO_POLICIES = {
+  planA: [
+    'Deductible is ₦20,000 annually.',
+    'Specialist visits are covered at 80% after a ₦500 copay.',
+    'Prior authorization is required for CT scans, MRIs, and injections.',
+  ],
+  planB: [
+    'All preventive services are covered at 100%.',
+    'Lab tests are 90% covered after deductible.',
+    'You must get a referral for all specialist visits.',
+  ],
+};
+
 document.addEventListener('DOMContentLoaded', function () {
   const yearSpan = document.getElementById('current-year');
   const currentYear = new Date().getFullYear();

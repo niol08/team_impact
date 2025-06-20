@@ -9,7 +9,13 @@ function saveRecentCalculation(
   recent = recent.filter(
     (item) => item.calcName !== calcName || item.categorySlug !== categorySlug
   );
-  recent.unshift({ calcName, categoryTitle, categorySlug, result, unit });
+  recent.unshift({
+    calcName,
+    categoryTitle,
+    categorySlug,
+    result,
+    unit,
+  });
   if (recent.length > 10) recent = recent.slice(0, 10);
   localStorage.setItem('recentCalculations', JSON.stringify(recent));
 }
@@ -46,16 +52,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
             resultDiv.innerHTML = `
             <div class="d-flex align-items-center justify-content-center gap-3 flex-wrap">
-    <span class="result-label">Result:</span>
-    <span class="result-value" style="color:#1d4ed8; font-weight:600;">${roundedResult} ${unit}</span>
-    <button class="btn explain-btn" 
-      style="background:#1d4ed8; color:#fff; border:none; border-radius:20px; padding:0.375rem 1.25rem; font-weight:500; box-shadow:0 2px 8px rgba(30,41,59,0.08); transition:background 0.2s;"
-      type="button">
-      Explain
-    </button>
-  </div>
-  <div class="explanation mt-3" ></div>
-`;
+              <span class="result-label">Result:</span>
+              <span class="result-value" style="color:#1d4ed8; font-weight:600;">${roundedResult} ${unit}</span>
+              <button class="btn explain-btn" 
+                style="background:#1d4ed8; color:#fff; border:none; border-radius:20px; padding:0.375rem 1.25rem; font-weight:500; box-shadow:0 2px 8px rgba(30,41,59,0.08); transition:background 0.2s;"
+                type="button">
+                Explain
+              </button>
+            </div>
+            <div class="explanation mt-3"></div>
+          `;
+
             const parameters = {};
             form
               .querySelectorAll('input, select, textarea')
@@ -71,6 +78,12 @@ document.addEventListener('DOMContentLoaded', function () {
                   }
                 }
               });
+
+            localStorage.setItem(
+              'lastCalculationParams',
+              JSON.stringify(parameters)
+            );
+
             const explainBtn = resultDiv.querySelector('.explain-btn');
             const explanationDiv = resultDiv.querySelector('.explanation');
             explainBtn.addEventListener('click', function () {
@@ -90,8 +103,34 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then((res) => res.json())
                 .then((data) => {
                   let cleanText = data.explanation.replace(/\*/g, '').trim();
-                  explanationDiv.innerHTML = cleanText;
+                  explanationDiv.innerHTML = `
+                    <div>${cleanText}</div>
+                    <button class="btn btn-outline-primary mt-3 ask-policy-btn">Ask Policy AI</button>
+                  `;
                   explanationDiv.style.display = 'block';
+
+                  const askBtn =
+                    explanationDiv.querySelector('.ask-policy-btn');
+                  askBtn.addEventListener('click', async function () {
+                    try {
+                      const resp = await fetch('/dashboard', { method: 'GET' });
+                      if (resp.status === 200) {
+                        window.location.href = '/policyai';
+                      } else {
+                        const modal = document.getElementById('authModal');
+                        if (modal) {
+                          let bsModal =
+                            bootstrap.Modal.getOrCreateInstance(modal);
+                          bsModal.show();
+                        } else {
+                          alert('Please sign in to use Policy AI.');
+                        }
+                      }
+                    } catch (err) {
+                      alert('Could not check session. Please try again.');
+                    }
+                  });
+
                   explainBtn.disabled = false;
                   explainBtn.textContent = 'Explain result';
                 })

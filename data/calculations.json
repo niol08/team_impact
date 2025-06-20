@@ -115,24 +115,24 @@
           "name": "Insulin Dose Calculation",
           "description": "Calculates insulin dose based on blood glucose levels and correction factor.",
           "formula": "Insulin dose = (Current glucose - Target glucose) / Correction factor",
-          "result_unit": "units",
+          "result_unit": "unit",
           "parameters": [
             {
               "name": "currentGlucose",
               "description": "Current blood glucose reading",
-              "unit": "mg/dL or mmol/L",
+              "unit": "mg/dL",
               "type": "float"
             },
             {
               "name": "targetGlucose",
               "description": "Target blood glucose level",
-              "unit": "mg/dL or mmol/L",
+              "unit": "mg/dL",
               "type": "float"
             },
             {
               "name": "correctionFactor",
               "description": "How much 1 unit of insulin will lower blood glucose",
-              "unit": "mg/dL/unit or mmol/L/unit",
+              "unit": "mg/dL/unit",
               "type": "float"
             }
           ]

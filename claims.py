@@ -6,7 +6,7 @@ from datetime import date
 
 load_dotenv()  # Load variables from .env file
 
-API_KEY = os.getenv("CURACEL_API_KEY")
+API_KEY = os.getenv("CURACELL_API_KEY")
 
 headers = {
     "Authorization": f"Bearer {API_KEY}",

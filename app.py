@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, jsonify
+from flask import Flask, render_template, url_for, request, jsonify, session
 import json
 import os
 import calculations
@@ -6,6 +6,13 @@ from livereload import Server
 from calculations.calculations import CALC_REGISTRY
 from dotenv import load_dotenv
 import requests
+import firebase_admin
+from firebase_admin import credentials, auth as firebase_auth
+
+
+cred = credentials.Certificate("firebase-key.json")
+firebase_admin.initialize_app(cred)
+
 
 app = Flask(__name__) 
 
@@ -14,6 +21,9 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 load_dotenv()
 
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
+
+app.secret_key = os.environ.get("FLASK_SECRET_KEY", "dev-secret")
+
 
 json_path = os.path.join(app.root_path, 'data', 'calculations.json')
 with open(json_path, encoding='utf-8') as f:
@@ -34,6 +44,30 @@ def execute_function(function_name, parameters):
         return result
     except Exception as e:
         return str(e)
+
+
+
+@app.route('/login', methods=['POST'])
+def login():
+    auth_header = request.headers.get("Authorization", "")
+    print("[Login] Received header:", auth_header)
+
+    if not auth_header.startswith("Bearer "):
+        print("Missing or invalid Authorization header")
+        return "Unauthorized", 401
+
+    id_token = auth_header.split(" ")[1]
+    try:
+        decoded = firebase_auth.verify_id_token(id_token)
+        uid = decoded['uid']
+        session.permanent = True  # Optional
+        session['user'] = uid
+        print("[Login] Session set for UID:", uid)
+        return '', 200
+    except Exception as e:
+        print("[Login] Token verification failed:", e)
+        return "Unauthorized", 401
+
 
 
 @app.route('/explain', methods=['POST'])
@@ -115,8 +149,14 @@ Please provide your explanation now:"""
 
 @app.route('/')
 def index():
-    cards = data['categories']
-    return render_template('index.html', cards=cards)
+     cards = data['categories']
+     user = session.get('user', None)
+     return render_template(
+        'index.html',
+        cards=cards,
+        user=user
+    )
+
 
    
 @app.route('/card/<slug>', methods=['GET', 'POST'])
@@ -189,6 +229,26 @@ def search_api():
                     'category_slug': category_slug
                 })
     return jsonify(results)
+
+
+@app.route('/dashboard')
+def dashboard():
+    print("🔍 Session contents:", dict(session))
+    uid = session.get('user')
+    if not uid:
+        print("No user in session")
+        return "Unauthorized", 401
+    print("Dashboard access for:", uid)
+    return render_template("dashboard.html", user=uid)
+
+
+@app.route('/policyai')
+def policyai():
+    uid = session.get('user')
+    if not uid:
+        return "Unauthorized", 401
+    return render_template("chat.html", user=uid)
+
 
 if __name__ == '__main__':
     server = Server(app.wsgi_app)

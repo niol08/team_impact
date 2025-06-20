@@ -26,6 +26,7 @@ instance/
 # System files
 .DS_Store
 Thumbs.db
+firebase-key.json
 
 # IDE-specific files
 .vscode/
@@ -41,3 +42,4 @@ static/js/*.map
 # Ignore compiled CSS/JS (if applicable)
 *.min.css
 *.min.js
+
