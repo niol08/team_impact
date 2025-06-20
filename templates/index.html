@@ -92,7 +92,8 @@
     </div>
   </div>
 </section>
-<section id="About">
+
+<section id="About" style="flex-direction: row-reverse">
   <!-- About app -->
   <div class="about-image">
     <img
@@ -113,6 +114,29 @@
       compliance. CLNICALC makes complex calculations simple, enabling nurses to
       deliver precise, evidence-based care with confidence.
     </p>
+  </div>
+</section>
+<section id="About">
+  <!-- About app -->
+  <div class="about-image">
+    <img
+      class="nurse-illustration"
+      src="{{ url_for('static', filename='images/Businessman 1.png') }}"
+      alt="nurse-illustration"
+    />
+  </div>
+  <div class="about-text">
+    <h2>STREAMLINING INSURANCE PROCESS.</h2>
+    <p>
+      Our platform leverages advanced Policy AI to simplify and accelerate the
+      insurance process for healthcare professionals. By analyzing patient data
+      and insurance requirements in real time, our system provides instant
+      policy recommendations, eligibility checks, and coverage calculations.
+      This automation reduces paperwork, minimizes errors, and ensures that both
+      patients and providers receive accurate, up-to-date information for faster
+      approvals and better decision-making. With CLNICALC, navigating insurance
+      policies becomes seamless and efficient.
+    </p>
     <a
       href="javascript:void(0);"
       class="get-started"
@@ -122,7 +146,6 @@
     >
   </div>
 </section>
-
 <section id="calc-count-section" class="text-center py-5">
   <div>
     <span id="calc-counter">1</span>
