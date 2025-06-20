@@ -45,14 +45,7 @@ def execute_function(function_name, parameters):
     except Exception as e:
         return str(e)
 
-@app.route('/chat', methods=['GET', 'POST'])
-def chat():
-    if request.method == 'POST':
-        user_message = request.json.get('message')
-        # Here you would process the message and generate a response
-        response = f"You said: {user_message}"
-        return jsonify({'response': response})
-    return render_template('chat.html')
+
 
 
 @app.route('/login', methods=['POST'])
@@ -241,7 +234,7 @@ def search_api():
 
 @app.route('/dashboard')
 def dashboard():
-    print("🔍 Session contents:", dict(session))
+    print("Session contents:", dict(session))
     uid = session.get('user')
     if not uid:
         print("No user in session")
@@ -256,6 +249,16 @@ def policyai():
     if not uid:
         return "Unauthorized", 401
     return render_template("chat.html", user=uid)
+
+
+# @app.route('/chat', methods=['GET', 'POST'])
+# def chat():
+#     if request.method == 'POST':
+#         user_message = request.json.get('message')
+#         # Here you would process the message and generate a response
+#         response = f"You said: {user_message}"
+#         return jsonify({'response': response})
+#     return render_template('chat.html')
 
 
 if __name__ == '__main__':
