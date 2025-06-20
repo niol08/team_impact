@@ -1,0 +1,51 @@
+.chatbox-scroll {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+.chat-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+}
+
+@media (max-width: 576px) {
+  .chat-avatar {
+    width: 40px;
+    height: 40px;
+  }
+}
+.chat-message {
+  max-width: 360px;
+  word-break: break-word;
+}
+.chat-input-icons svg {
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.chat-input-icons svg:hover {
+  color: #0d6efd;
+}
+.chat-send-btn {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #0d6efd;
+  color: #fff;
+  border: none;
+  transition: background 0.2s;
+}
+.chat-send-btn:hover {
+  background: #0b5ed7;
+}
+.form-control:focus {
+  box-shadow: none;
+  border-color: #0d6efd;
+}
+
