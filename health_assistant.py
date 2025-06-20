@@ -7,6 +7,7 @@ import PyPDF2
 import pytesseract
 from PIL import Image
 import PyPDF2
+import fitz  # PyMuPDF for PDF text extraction
 from pathlib import Path
 from dotenv import load_dotenv
 

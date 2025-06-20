@@ -1,9 +1,12 @@
-from firebase_admin import firestore
+from firebase_admin import firestore, _apps
 
-db = firestore.client()
-
+def get_db():
+    if not _apps:
+        raise RuntimeError("Firebase not initialized! Initialize in app.py first.")
+    return firestore.client()
 
 def create_user(uid, email, display_name, role="client"):
+    db= get_db()
     user_data = {
         "email": email,
         "displayName": display_name,
@@ -14,6 +17,7 @@ def create_user(uid, email, display_name, role="client"):
 
 
 def upload_policy(owner_uid, name, file_url, chunk_ids):
+    db = get_db()
     policy = {
         "ownerUid": owner_uid,
         "name": name,
@@ -24,6 +28,7 @@ def upload_policy(owner_uid, name, file_url, chunk_ids):
     db.collection("policies").add(policy) 
 
 def create_pa_request(pa_id, client_uid, provider_id, diagnoses, services, ref):
+    db = get_db()
     pa_data = {
         "clientUid": client_uid,
         "providerId": provider_id,
@@ -38,6 +43,7 @@ def create_pa_request(pa_id, client_uid, provider_id, diagnoses, services, ref):
 
 
 def create_claim(claim_id, client_uid, provider_id, ref, billed_amount, items):
+    db = get_db()
     claim_data = {
         "clientUid": client_uid,
         "providerId": provider_id,
@@ -51,6 +57,7 @@ def create_claim(claim_id, client_uid, provider_id, ref, billed_amount, items):
 
 
 def start_chat(owner_uid, context_ids):
+    db = get_db()
     chat_ref = db.collection("chats").document()
     chat_ref.set({
         "ownerUid": owner_uid,
@@ -61,6 +68,7 @@ def start_chat(owner_uid, context_ids):
 
 
 def send_message(chat_id, sender, text, sources=None):
+    db = get_db()
     message_data = {
         "sender": sender,
         "text": text,

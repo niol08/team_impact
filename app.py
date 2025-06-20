@@ -10,6 +10,8 @@ import firebase_admin
 import tempfile
 from werkzeug.utils import secure_filename
 from firebase_admin import credentials, auth as firebase_auth
+from PIL import Image
+import pytesseract
 from health_assistant import (
     check_environment_variables,
     process_document_file,
@@ -17,11 +19,18 @@ from health_assistant import (
     process_user_request,
     chat_with_bot
 )
+import firebase_admin
+from firebase_admin import credentials, firestore
+
+# Load Azure Health Text Analytics configuration from environment
+AZURE_HEALTH_ENDPOINT = os.environ.get("AZURE_HEALTH_ENDPOINT")
+AZURE_HEALTH_KEY = os.environ.get("AZURE_HEALTH_KEY")
 
 
 cred = credentials.Certificate("firebase-key.json")
 firebase_admin.initialize_app(cred)
 
+db = firestore.client()
 
 app = Flask(__name__) 
 
@@ -241,15 +250,20 @@ def search_api():
     return jsonify(results)
 
 
+
+
 @app.route('/dashboard')
 def dashboard():
-    print("Session contents:", dict(session))
     uid = session.get('user')
     if not uid:
-        print("No user in session")
         return "Unauthorized", 401
-    print("Dashboard access for:", uid)
-    return render_template("dashboard.html", user=uid)
+
+    # Fetch user info from Firestore
+    user_doc = db.collection("users").document(uid).get()
+    user_info = user_doc.to_dict() if user_doc.exists else {}
+    display_name = user_info.get("displayName", "User")
+
+    return render_template("dashboard.html", user=display_name)
 
 
 @app.route('/policyai')

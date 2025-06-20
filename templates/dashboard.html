@@ -5,108 +5,105 @@
   href="{{ url_for('static', filename='css/dashboard.css') }}"
 />
 {% endblock %} {% block content %}
- <div class="dashboard">
-        <header class="dashboard-header">
-            <div class="user-info">
-                <span>Welcome, {{user}}</span>
-            </div>
-            <div class="sign-out">
-                <button>
-                    Sign Out
-                </button>
-            </div>
-        </header>
-
-        <main class="dashboard-main">
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <div class="metric-icon">📊</div>
-                    <div class="metric-content">
-                        <h3>Calculations</h3>
-                        <p class="metric-value" id="totalSales">0</p>
-                    </div>
-                </div>
-
-                <div class="metric-card">
-                    <div class="metric-icon">👥</div>
-                    <div class="metric-content">
-                        <h3>Investment Plans</h3>
-                        <p class="metric-value" id="activeUsers">0</p>
-                    </div>
-                </div>
-
-                <div class="metric-card">
-                    <div class="metric-icon">📈</div>
-                    <div class="metric-content">
-                        <h3>Medical Plan</h3>
-                        <p class="metric-value" id="revenue">0</p>
-                    </div>
-                </div>
-
-                <div class="metric-card">
-                    <div class="metric-icon">🎯</div>
-                    <div class="metric-content">
-                        <h3>Medical Records</h3>
-                        <p class="metric-value" id="conversionRate">0</p>
-                    </div>
-                </div>
-            </div>
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <!-- <div class="metric-icon">📊</div> -->
-                    <div class="metric-content">
-                        <h3>Unit price billed</h3>
-                        <p class="metric-value" id="totalSales">0</p>
-                    </div>
-                </div>
-
-                <div class="metric-card">
-                    <!-- <div class="metric-icon">👥</div> -->
-                    <div class="metric-content">
-                        <h3>Diagnosis</h3>
-                        <p>Malaria</p>
-                    </div>
-                </div>
-
-                <div class="metric-card">
-                    <!-- <div class="metric-icon">📈</div> -->
-                    <div class="metric-content">
-                        <h3>Verification status</h3>
-                        <p class="metric-value" id="revenue">0</p>
-                    </div>
-                </div>
-
-                <div class="metric-card">
-                    <!-- <div class="metric-icon">🎯</div> -->
-                    <div class="metric-content">
-            <div class="policy-section">
-                <h3>Ask Policyai</h3>
-                <div class="policy">
-                    <li>
-                        <a href="/chat">Start chat</a>
-                    </li>
-                </div>
-            </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- javascript to populate later -->
-            <div class="dashboard-content">
-                <div class="chart-section">
-                    <h2>Investment Plans</h2>
-                    <div class="chart-container">
-                        <canvas id="salesChart" width="400" height="200"></canvas>
-                    </div>
-                </div>
-
-                <div class="activity-section">
-                    <h2>Recent Activity</h2>
-                    <div class="activity-list" id="activityList">
-                    </div>
-                </div>
-            </div>
-        </main>
+<div class="dashboard">
+  <header class="dashboard-header">
+    <div class="user-info">
+      <span>Welcome, {{user}}</span>
     </div>
-    
+    <div class="sign-out">
+      <button>Sign Out</button>
+    </div>
+  </header>
+
+  <main class="dashboard-main">
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-icon">📊</div>
+        <div class="metric-content">
+          <h3>Calculations</h3>
+          <p class="metric-value" id="totalSales">0</p>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon">👥</div>
+        <div class="metric-content">
+          <h3>Investment Plans</h3>
+          <p class="metric-value" id="activeUsers">0</p>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon">📈</div>
+        <div class="metric-content">
+          <h3>Medical Plan</h3>
+          <p class="metric-value" id="revenue">0</p>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon">🎯</div>
+        <div class="metric-content">
+          <h3>Medical Records</h3>
+          <p class="metric-value" id="conversionRate">0</p>
+        </div>
+      </div>
+    </div>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <!-- <div class="metric-icon">📊</div> -->
+        <div class="metric-content">
+          <h3>Unit price billed</h3>
+          <p class="metric-value" id="totalSales">0</p>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <!-- <div class="metric-icon">👥</div> -->
+        <div class="metric-content">
+          <h3>Diagnosis</h3>
+          <p>Malaria</p>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <!-- <div class="metric-icon">📈</div> -->
+        <div class="metric-content">
+          <h3>Verification status</h3>
+          <p class="metric-value" id="revenue">0</p>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <!-- <div class="metric-icon">🎯</div> -->
+        <div class="metric-content">
+          <div class="policy-section">
+            <h3>Ask Policyai</h3>
+            <div class="policy">
+              <li>
+                <a href="/policyai">Start chat</a>
+              </li>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- javascript to populate later -->
+    <div class="dashboard-content">
+      <div class="chart-section">
+        <h2>Investment Plans</h2>
+        <div class="chart-container">
+          <canvas id="salesChart" width="400" height="200"></canvas>
+        </div>
+      </div>
+
+      <div class="activity-section">
+        <h2>Recent Activity</h2>
+        <div class="activity-list" id="activityList"></div>
+      </div>
+    </div>
+  </main>
+</div>
+
 {% endblock %}
