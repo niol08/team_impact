@@ -603,7 +603,9 @@
   </div>
 </div>
 
-<!-- Add these inside <head> or before your JS -->
+<!-- <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script> -->
 
 <script>
   const firebaseConfig = {
@@ -678,7 +680,6 @@
           );
           const uid = userCred.user.uid;
 
-          // 🔥 Save to Firestore
           await db.collection('users').doc(uid).set({
             email,
             plan,
@@ -700,7 +701,7 @@
           msg.textContent = 'Sign up successful!';
           msg.classList.replace('text-danger', 'text-success');
           msg.style.display = 'block';
-
+          console.log('Redirecting to /dashboard in 1 second...');
           setTimeout(() => (window.location.href = '/dashboard'), 1000);
         } catch (error) {
           msg.textContent = error.message;
