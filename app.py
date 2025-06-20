@@ -7,7 +7,16 @@ from calculations.calculations import CALC_REGISTRY
 from dotenv import load_dotenv
 import requests
 import firebase_admin
+import tempfile
+from werkzeug.utils import secure_filename
 from firebase_admin import credentials, auth as firebase_auth
+from health_assistant import (
+    check_environment_variables,
+    process_document_file,
+    analyze_document_with_gpt,
+    process_user_request,
+    chat_with_bot
+)
 
 
 cred = credentials.Certificate("firebase-key.json")
@@ -260,7 +269,79 @@ def policyai():
 #         return jsonify({'response': response})
 #     return render_template('chat.html')
 
+@app.route('/chat/health-assistant', methods=['POST'])
+def health_assistant_chat():
+    if not session.get('user'):
+        return jsonify({'error': 'Unauthorized'}), 401
+        
+    try:
+        data = request.get_json()
+        user_message = data.get('message')
+        conversation = data.get('conversation', [])
+        doc_summary = data.get('doc_summary')
+        
+        if not user_message:
+            return jsonify({'error': 'Message is required'}), 400
+            
+        reply = process_user_request(user_message, conversation, doc_summary)
+        
+        return jsonify({
+            'response': reply,
+            'conversation': conversation + [
+                {'role': 'user', 'content': user_message},
+                {'role': 'assistant', 'content': reply}
+            ]
+        })
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
+@app.route("/health-assistant/upload", methods=["POST"])
+def upload_document():
+    try:
+        if "file" not in request.files:
+            return jsonify({"error": "No file uploaded"}), 400
+        file = request.files["file"]
+        if not file.filename:
+            return jsonify({"error": "Empty filename"}), 400
+
+        filename = secure_filename(file.filename)
+        # Save to temp file for OCR or direct text extraction
+        with tempfile.NamedTemporaryFile(delete=False) as tmp:
+            file.save(tmp.name)
+            tmp.flush()
+            # Basic type check
+            if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp')):
+                # OCR for images
+                text = pytesseract.image_to_string(Image.open(tmp.name))
+            elif filename.lower().endswith('.txt'):
+                with open(tmp.name, "r", encoding="utf-8") as f:
+                    text = f.read()
+            else:
+                return jsonify({"error": "Unsupported file type"}), 400
+
+        # Call Azure Health Text Analytics
+        url = f"{AZURE_HEALTH_ENDPOINT}/text/analytics/v3.1/entities/health"
+        headers = {
+            "Ocp-Apim-Subscription-Key": AZURE_HEALTH_KEY,
+            "Content-Type": "application/json"
+        }
+        data = {
+            "documents": [
+                {"id": "1", "language": "en", "text": text}
+            ]
+        }
+        resp = requests.post(url, headers=headers, json=data)
+        if resp.status_code != 200:
+            return jsonify({"error": f"Azure error {resp.status_code}: {resp.text}"}), 500
+        result = resp.json()
+        # You can summarize or just send entities
+        entities = result["documents"][0].get("entities", [])
+        summary = "; ".join([f"{e['category']}: {e['text']}" for e in entities]) if entities else "No medical entities found."
+
+        return jsonify({"success": True, "doc_summary": summary})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 if __name__ == '__main__':
     server = Server(app.wsgi_app)
     server.serve()
